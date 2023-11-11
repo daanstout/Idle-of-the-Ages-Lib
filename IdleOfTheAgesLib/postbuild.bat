@@ -1,0 +1,1 @@
+copy %1 "../../Idle of the Ages/Assets/Plugins/"

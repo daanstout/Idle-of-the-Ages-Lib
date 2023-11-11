@@ -1,0 +1,19 @@
+﻿{
+  "$schema": "../JsonSchemas/ModData/data.json",
+  "namespace": "IdleOfTheAges",
+  "ages": [
+    {
+      "id": "Stone_Age",
+      "name": "Stone Age",
+      "translation_key": "Stone_Age"
+    }
+  ],
+  "skill_categories": [
+    {
+      "id": "Non_Combat",
+      "name": "Non Combat",
+      "translation_key": "Non_Combat",
+      "thumbnail": ""
+    }
+  ]
+}
