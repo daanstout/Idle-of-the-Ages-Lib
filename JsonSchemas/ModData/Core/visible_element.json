@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "./base_element.json",
+    "allOf": [
+        {
+            "$ref": "./base_element.json"
+        }
+    ],
+    "properties": {
+        "translation_key": {
+            "description": "The translation key of the element.",
+            "type": "string"
+        },
+        "sorting_order": {
+            "description": "The sorting order for this element.",
+            "$ref": "./sorting_order.json"
+        }
+    },
+    "required": [
+        "translation_key",
+        "sorting_order"
+    ]
+}

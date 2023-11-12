@@ -5,7 +5,10 @@
     {
       "id": "Stone_Age",
       "name": "Stone Age",
-      "translation_key": "Stone_Age"
+      "translation_key": "Stone_Age",
+      "sorting_order": {
+        "order": 0
+      }
     }
   ],
   "skill_categories": [

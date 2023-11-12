@@ -8,7 +8,7 @@
             "description": "The ages that the mod is adding.",
             "type": "array",
             "items": {
-                "$ref": "./age.json"
+                "$ref": "./Skills/age.json"
             },
             "minItems": 1
         },
@@ -16,7 +16,7 @@
             "description": "The skill categories that the mod is adding.",
             "type": "array",
             "items": {
-                "$ref": "./skill_category.json"
+                "$ref": "./Skills/skill_category.json"
             },
             "minItems": 1
         },
@@ -24,7 +24,7 @@
             "description": "The skills that the mod is adding.",
             "type": "array",
             "items": {
-                "$ref": "./skill.json"
+                "$ref": "./Skills/skill.json"
             },
             "minItems": 1
         },
