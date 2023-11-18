@@ -22,7 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Assets\Skills\Tree.png">
+    <None Update="Assets\Languages\en_US.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Languages\nl_NL.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Skills\tree.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="data.json">
@@ -51,6 +57,10 @@
     <Reference Include="UnityEngine.UIElementsModule">
       <HintPath>E:\Unity\2022.3.12f1\Editor\Data\Managed\UnityEngine\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\Languages\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

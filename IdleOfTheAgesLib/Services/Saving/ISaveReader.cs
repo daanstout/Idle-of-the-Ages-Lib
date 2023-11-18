@@ -1,4 +1,4 @@
-﻿namespace IdleOfTheAgesLib.Services.Saving {
+﻿namespace IdleOfTheAgesLib.Saving {
     internal interface ISaveReader {
         int ReadInt();
         uint ReadUint();

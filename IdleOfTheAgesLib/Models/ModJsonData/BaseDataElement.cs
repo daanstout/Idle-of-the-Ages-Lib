@@ -4,11 +4,11 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
     /// A base class for data elements.
     /// </summary>
-    public abstract class BaseElement {
+    public abstract class BaseDataElement {
         /// <summary>
         /// The namespace of the object.
         /// </summary>
-        public string Namespace { get; private set; } = string.Empty;
+        public string Namespace { get; set; } = string.Empty;
         
         /// <summary>
         /// The name of the object.
@@ -31,7 +31,7 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
     /// A base class for data elements that are visible to the user.
     /// </summary>
-    public abstract class VisisbleElement : BaseElement {
+    public abstract class VisisbleDataElement : BaseDataElement {
         /// <summary>
         /// The translation key of the element.
         /// </summary>
@@ -42,13 +42,13 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// The Age that this age should be after.
         /// </summary>
         [JsonProperty]
-        public SortingOrder SortingOrder { get; set; } = new SortingOrder();
+        public SortingOrderData SortingOrder { get; set; } = new SortingOrderData();
     }
 
     /// <summary>
     /// A base class for data elements that are visible to the user and have a thumbnail.
     /// </summary>
-    public abstract class ThumbnailElement : VisisbleElement {
+    public abstract class ThumbnailDataElement : VisisbleDataElement {
         /// <summary>
         /// The thumbnail ID of the object.
         /// </summary>

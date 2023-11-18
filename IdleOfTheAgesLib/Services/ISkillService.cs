@@ -1,9 +1,9 @@
-﻿using IdleOfTheAgesLib.Data;
+﻿using IdleOfTheAgesLib.Models.ModJsonData;
 
 using System;
 using System.Collections.Generic;
 
-namespace IdleOfTheAgesLib.Services {
+namespace IdleOfTheAgesLib.Skills {
     /// <summary>
     /// A service that keeps track of all available skills.
     /// </summary>
@@ -11,24 +11,38 @@ namespace IdleOfTheAgesLib.Services {
         /// <summary>
         /// The skill that should be shown.
         /// </summary>
-        Skill CurrentlyShowingSkill { get; }
+        SkillImplementation CurrentlyShowingSkill { get; }
 
         /// <summary>
         /// An event that is fired when the currently showing skill changes.
         /// </summary>
-        event Action<Skill> CurrentlyShowingSkillChangedEvent;
+        event Action<SkillImplementation> CurrentlyShowingSkillChangedEvent;
 
         /// <summary>
-        /// Registers a skill to the game.
+        /// Registers the skill data for a skill to the game.
+        /// </summary>
+        /// <param name="skillData">The skill data to register.</param>
+        Result RegisterSkillData(SkillData skillData);
+
+        /// <summary>
+        /// Registers the implementation for a skill to the game.
         /// </summary>
         /// <typeparam name="TSkill">The type of the skill to register.</typeparam>
-        Result RegisterSkill<TSkill>() where TSkill : Skill, new();
+        /// <param name="skillID">The ID of the skill.</param>
+        Result RegisterSkillImplementation<TSkill>(string skillID) where TSkill : SkillImplementation;
+
+        /// <summary>
+        /// Registers the implementation for a skill to the game.
+        /// </summary>
+        /// <param name="skillType">The type of the skill to register.</param>
+        /// <param name="skillID">The ID of the skill.</param>
+        Result RegisterSkillImplementation(Type skillType, string skillID);
 
         /// <summary>
         /// Gets all skills currently registered in the game.
         /// </summary>
         /// <returns>The skills currently registered in the game.</returns>
-        Result<IReadOnlyCollection<Skill>> GetSkills();
+        Result<IReadOnlyCollection<SkillImplementation>> GetSkills();
 
         /// <summary>
         /// Changes the skill that is being shown.

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
@@ -15,15 +15,7 @@
     <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
@@ -56,7 +48,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesLib.dll&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.xml&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.xml" />
+    <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesLib.dll&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.xml" />
   </Target>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace IdleOfTheAgesLib.Services.Saving {
+﻿namespace IdleOfTheAgesLib.Saving {
     internal interface ISaveWriter {
         bool WriteInt();
         bool WriteUint();

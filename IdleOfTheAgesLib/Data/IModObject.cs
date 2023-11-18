@@ -1,6 +1,6 @@
 ﻿using IdleOfTheAgesLib.DependencyInjection;
 
-namespace IdleOfTheAgesLib.Data {
+namespace IdleOfTheAgesLib {
     /// <summary>
     /// Contains all relevant mod data.
     /// </summary>

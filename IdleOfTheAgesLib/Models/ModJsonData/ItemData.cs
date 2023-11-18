@@ -6,7 +6,7 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
     /// An item that can be obtained in the game.
     /// </summary>
-    public class Item : ThumbnailElement {
+    public class ItemData : ThumbnailDataElement {
         /// <summary>
         /// The key to the description of the item.
         /// </summary>
@@ -27,12 +27,14 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
 
         /// <summary>
         /// The category of this item.
+        /// <para>This is used for searching.</para>
         /// </summary>
         [JsonProperty]
         public string Category { get; private set; } = string.Empty;
 
         /// <summary>
         /// The type of item this is.
+        /// <para>This is used for searching.</para>
         /// </summary>
         [JsonProperty]
         public string Type { get; private set; } = string.Empty;

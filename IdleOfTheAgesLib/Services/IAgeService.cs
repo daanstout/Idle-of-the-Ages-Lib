@@ -1,6 +1,6 @@
 ﻿using IdleOfTheAgesLib.Models.ModJsonData;
 
-namespace IdleOfTheAgesLib.Services {
+namespace IdleOfTheAgesLib.Skills {
     /// <summary>
     /// A service that holds all the ages that exist.
     /// </summary>
@@ -11,6 +11,6 @@ namespace IdleOfTheAgesLib.Services {
         /// <para>The namespace field will be filled in automatically.</para>
         /// </summary>
         /// <param name="age">The age to register.</param>
-        Result RegisterAge(Age age);
+        Result RegisterAge(AgeData age);
     }
 }

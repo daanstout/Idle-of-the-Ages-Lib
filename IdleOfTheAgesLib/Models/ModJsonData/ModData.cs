@@ -17,18 +17,18 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// The ages that the mod adds.
         /// </summary>
         [JsonProperty("ages")]
-        public Age[] Ages { get; set; } = Array.Empty<Age>();
+        public AgeData[] Ages { get; set; } = Array.Empty<AgeData>();
 
         /// <summary>
         /// The skill categories that the mod adds.
         /// </summary>
         [JsonProperty("skill_categories")]
-        public SkillCategory[] SkillCategories { get; set; } = Array.Empty<SkillCategory>();
+        public SkillCategoryData[] SkillCategories { get; set; } = Array.Empty<SkillCategoryData>();
 
         /// <summary>
         /// The skills that the mod adds.
         /// </summary>
         [JsonProperty("skills")]
-        public Skill[] Skills { get; set; } = Array.Empty<Skill>();
+        public SkillData[] Skills { get; set; } = Array.Empty<SkillData>();
     }
 }

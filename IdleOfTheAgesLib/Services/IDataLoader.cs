@@ -1,4 +1,4 @@
-﻿namespace IdleOfTheAgesLib.Services {
+﻿namespace IdleOfTheAgesLib {
     /// <summary>
     /// Allows for loading in <see cref="Models.ModJsonData.ModData"/> objects.
     /// </summary>
@@ -6,14 +6,19 @@
         /// <summary>
         /// Loads in a <see cref="Models.ModJsonData.ModData"/> object from the mod folder.
         /// </summary>
-        /// <param name="path">The path to the json file.</param>
-        Result LoadData(string path);
+        /// <param name="pathSegments">The path to the json file.</param>
+        Result LoadData(params string[] pathSegments);
 
         /// <summary>
         /// Registers textures from this mod to the game.
         /// </summary>
-        /// <param name="rootPath">The root path.</param>
-        /// <param name="includeSubFolders">Whether or not to also include textures in sub-folders.</param>
-        Result RegisterTextures(string rootPath, bool includeSubFolders = true);
+        /// <param name="pathSegments">The root path.</param>
+        Result RegisterTextures(params string[] pathSegments);
+
+        /// <summary>
+        /// Loads the language files in the given path.
+        /// </summary>
+        /// <param name="pathSegments">The path the language files are located at.</param>
+        Result LoadLanguages(params string[] pathSegments);
     }
 }

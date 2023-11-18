@@ -1,6 +1,6 @@
 ﻿using IdleOfTheAgesLib.UI;
 
-namespace IdleOfTheAgesLib.Services.UI {
+namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A service to interact with the UI elements that exist.
     /// </summary>
@@ -9,7 +9,7 @@ namespace IdleOfTheAgesLib.Services.UI {
         /// Gets the root <see cref="Element"/>.
         /// </summary>
         /// <returns>The root UI element of the game.</returns>
-        Element GetRoot();
+        Result<Element> GetRoot();
 
         /// <summary>
         /// Adds an element to the UI Service that has been spawned to the screen.
@@ -24,13 +24,13 @@ namespace IdleOfTheAgesLib.Services.UI {
         /// <typeparam name="TElement">The type of the element to obtain.</typeparam>
         /// <param name="identifier">The unique identifier of the element.</param>
         /// <returns>The requested element.</returns>
-        TElement GetElement<TElement>(string identifier) where TElement : Element;
+        Result<TElement> GetElement<TElement>(string identifier) where TElement : Element;
 
         /// <summary>
         /// Gets an element that has been spawned.
         /// </summary>
         /// <param name="identifier">The unique identifier of the element.</param>
         /// <returns>The requested element.</returns>
-        Element GetElement(string identifier);
+        Result<Element> GetElement(string identifier);
     }
 }

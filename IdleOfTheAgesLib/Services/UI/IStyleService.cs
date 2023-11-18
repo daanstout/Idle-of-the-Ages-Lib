@@ -1,6 +1,6 @@
 ﻿using IdleOfTheAgesLib.UI.Styles;
 
-namespace IdleOfTheAgesLib.Services.UI {
+namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A service to hold all the style sheets.
     /// </summary>

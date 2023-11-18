@@ -4,7 +4,7 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
     /// Represents the data for a skill that is being added.
     /// </summary>
-    public class Skill : ThumbnailElement {
+    public class SkillData : ThumbnailDataElement {
         /// <summary>
         /// The skill category this Skill falls under.
         /// </summary>

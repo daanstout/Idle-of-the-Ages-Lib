@@ -1,11 +1,13 @@
 ﻿using System;
 
-namespace IdleOfTheAgesLib.DependencyInjection {
+namespace IdleOfTheAgesLib
+{
     /// <summary>
     /// An attribute that can be applied to parameters to provide a key to the required dependency.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
-    public class DependencyIdentifierAttribute : Attribute {
+    public class DependencyIdentifierAttribute : Attribute
+    {
         /// <summary>
         /// The key of the dependency instance to obtain.
         /// </summary>

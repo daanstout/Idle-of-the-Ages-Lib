@@ -16,41 +16,41 @@
                 TranslationKey = translationKey;
             }
         }
-
-        public class Skill : Item {
-            public Skill(string id, string name, string translationKey) : base(id, name, translationKey) { }
-        }
-
-        public class SkillCategory : Item {
-            public SkillCategory(string id, string name, string translationKey) : base(id, name, translationKey) { }
-        }
-
-        public class Age : Item {
-            public Age(string id, string name, string translationKey) : base(id, name, translationKey) { }
-        }
-
-        public class Thumbnail : Item {
-            public Thumbnail(string id, string name, string translationKey) : base(id, name, translationKey) { }
-        }
-        #endregion
-
-        public static string NAMESPACE { get; } = "IdleOfTheAgesGame";
-
+        
         #region Skills
-        public static Skill WOODCUTTING { get; } = new Skill("woodcutting", "Woodcutting", "Woodcutting");
-        public static Skill MINING { get; } = new Skill("Mining", "Mining", "Minig");
+        public class Skill : Item {
+            public static Skill WOODCUTTING { get; } = new Skill("woodcutting", "Woodcutting", "Woodcutting");
+            public static Skill MINING { get; } = new Skill("mining", "Mining", "Mining");
+
+            private Skill(string id, string name, string translationKey) : base(id, name, translationKey) { }
+        }
         #endregion
 
         #region Skill Categories
-        public static SkillCategory NON_COMBAT { get; } = new SkillCategory("non_combat", "Non Combat", "Non_Combat");
+        public class SkillCategory : Item {
+            public static SkillCategory Generating { get; } = new SkillCategory("generating", "Generating", "Generating");
+
+            public SkillCategory(string id, string name, string translationKey) : base(id, name, translationKey) { }
+        }
         #endregion
 
         #region Ages
-        public static Age STONE_AGE { get; } = new Age("stone_age", "Stone Age", "Stone_Age");
+        public class Age : Item {
+            public static Age STONE_AGE { get; } = new Age("stone_age", "Stone Age", "Stone_Age");
+
+            public Age(string id, string name, string translationKey) : base(id, name, translationKey) { }
+        }
         #endregion
 
         #region Thumbnails
-        public static Thumbnail TREE { get; } = new Thumbnail("Tree", "Tree", "Tree");
+        public class Thumbnail : Item {
+            public static Thumbnail TREE { get; } = new Thumbnail("tree", "Tree", "Tree");
+
+            public Thumbnail(string id, string name, string translationKey) : base(id, name, translationKey) { }
+        }
         #endregion
+        #endregion
+
+        public static string NAMESPACE { get; } = "IdleOfTheAgesGame";
     }
 }

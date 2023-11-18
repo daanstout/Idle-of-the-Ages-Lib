@@ -1,6 +1,8 @@
-﻿using System;
+﻿using IdleOfTheAgesLib.DependencyInjection;
 
-namespace IdleOfTheAgesLib.DependencyInjection {
+using System;
+
+namespace IdleOfTheAgesLib {
     /// <summary>
     /// An attribute that can be put on services to indicate they are a service.
     /// <para>Using this attribute makes it so you don't have to register services in a <see cref="IServiceRegistry"/>.</para>

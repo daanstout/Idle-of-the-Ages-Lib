@@ -2,8 +2,8 @@
 
 namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
-    /// A category a skill can be a part of.
+    /// An age that the player can be in.
     /// </summary>
-    public class SkillCategory : ThumbnailElement {
+    public class AgeData : ThumbnailDataElement {
     }
 }

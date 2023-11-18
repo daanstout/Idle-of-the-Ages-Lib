@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IdleOfTheAgesLib.Services.UI {
+namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A texture library where textures are loaded into.
     /// </summary>

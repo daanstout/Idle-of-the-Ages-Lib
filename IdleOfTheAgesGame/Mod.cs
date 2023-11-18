@@ -1,8 +1,5 @@
-﻿using IdleOfTheAgesGame.Skills;
-
-using IdleOfTheAgesLib;
+﻿using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.DependencyInjection;
-using IdleOfTheAgesLib.Services;
 
 namespace IdleOfTheAgesGame {
     public class Mod : IMod {
@@ -15,8 +12,7 @@ namespace IdleOfTheAgesGame {
             var dataLoader = serviceLibrary.Get<IDataLoader>();
             dataLoader.LoadData("data.json");
             dataLoader.RegisterTextures("Assets");
-            serviceLibrary.Get<ISkillService>().RegisterSkill<Woodcutting>();
-            serviceLibrary.Get<ISkillService>().RegisterSkill<Mining>();
+            dataLoader.LoadLanguages("Assets", "Languages");
         }
 
         public void ModLoaded(IServiceLibrary serviceLibrary) {

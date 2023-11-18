@@ -1,47 +1,23 @@
 ﻿using IdleOfTheAgesLib.DependencyInjection;
+using IdleOfTheAgesLib.Models.ModJsonData;
 using IdleOfTheAgesLib.UI;
 
 using System;
 
-namespace IdleOfTheAgesLib.Data {
+namespace IdleOfTheAgesLib.Skills {
     /// <summary>
     /// A skill that can be practiced by the player.
     /// </summary>
-    public abstract class Skill {
+    public abstract class SkillImplementation {
         /// <summary>
         /// The namespace the skill exists in.
         /// </summary>
         public abstract string Namespace { get; }
 
         /// <summary>
-        /// The ID of the skill.
+        /// The data for the skill.
         /// </summary>
-        public abstract string ID { get; }
-
-        /// <summary>
-        /// The name of the skill.
-        /// </summary>
-        public abstract string Name { get; }
-
-        /// <summary>
-        /// The translation key of the skill.
-        /// </summary>
-        public abstract string TranslationKey { get; }
-
-        /// <summary>
-        /// The category this skill should fall under.
-        /// </summary>
-        public abstract string SkillCategory { get; }
-
-        /// <summary>
-        /// The age the user needs to be in to unlock this skill.
-        /// </summary>
-        public abstract string UnlockAge { get; }
-
-        /// <summary>
-        /// The thumbnail for the skill.
-        /// </summary>
-        public abstract string Thumbnail { get; }
+        public SkillData SkillData { get; }
 
         /// <summary>
         /// The current level of the skill.
@@ -56,12 +32,20 @@ namespace IdleOfTheAgesLib.Data {
         /// <summary>
         /// The skill's namespaced ID.
         /// </summary>
-        public string NamespacedID => $"{Namespace}:{ID}";
+        public string NamespacedID => $"{Namespace}:{SkillData.ID}";
 
         /// <summary>
         /// The type of this class's skill UI <see cref="Element"/>.
         /// </summary>
         public abstract Type SkillUI { get; }
+
+        /// <summary>
+        /// Instantiates a new Skill instance.
+        /// </summary>
+        /// <param name="skillData">The json data for the skill.</param>
+        protected SkillImplementation(SkillData skillData) {
+            SkillData = skillData;
+        }
 
         /// <summary>
         /// Initializes the skill.

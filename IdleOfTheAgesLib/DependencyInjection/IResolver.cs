@@ -34,7 +34,6 @@ namespace IdleOfTheAgesLib.DependencyInjection {
     /// </summary>
     public interface IResolver<TType> : IResolver
         where TType : class {
-
         /// <summary>
         /// Resolves the dependency to the instance, creating a new one if one doesn't exist yet.
         /// </summary>

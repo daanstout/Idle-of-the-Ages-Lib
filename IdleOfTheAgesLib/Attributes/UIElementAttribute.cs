@@ -2,7 +2,7 @@
 
 using System;
 
-namespace IdleOfTheAgesLib.Attributes {
+namespace IdleOfTheAgesLib {
     /// <summary>
     /// Indicates that a class is an UI <see cref="Element"/>.
     /// </summary>

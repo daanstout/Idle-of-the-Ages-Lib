@@ -34,9 +34,8 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// <typeparam name="TInterface">The type of the interface.</typeparam>
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         /// <param name="key">The key to store the service under.</param>
-        /// <param name="overwriteExisting">Overwrite an existing service if a collision occurs (recommended to keep false!).</param>
         /// <returns><see langword="true"/> if the service was successfully registered, <see langword="false"/> if not.</returns>
-        bool RegisterService<TInterface, TImplementation>(string? key = null, bool overwriteExisting = false)
+        Result RegisterService<TInterface, TImplementation>(string? key = null)
              where TInterface : class
              where TImplementation : class;
 
@@ -46,9 +45,8 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// <param name="interfaceType">The type of the interface.</param>
         /// <param name="implementationType">The type of the implementation.</param>
         /// <param name="key">The key to store the service under.</param>
-        /// <param name="overwriteExisting">Overwrite an existing service if a collision occurs (recommended to keep false!).</param>
         /// <returns><see langword="true"/> if the service was successfully registered, <see langword="false"/> if not.</returns>
-        bool RegisterService(Type interfaceType, Type implementationType, string? key = null, bool overwriteExisting = false);
+        Result RegisterService(Type interfaceType, Type implementationType, string? key = null);
 
         /// <summary>
         /// Registers a service to the library.
@@ -56,9 +54,8 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// <typeparam name="TInterface">The type of the interface.</typeparam>
         /// <param name="factory">A factory that is used to create the instance.</param>
         /// <param name="key">The key to store the service under.</param>
-        /// <param name="overwriteExisting">Overwrite an existing service if a collision occurs (recommended to keep false!).</param>
         /// <returns><see langword="true"/> if the service was successfully registered, <see langword="false"/> if not.</returns>
-        bool RegisterService<TInterface>(Func<IServiceLibrary, TInterface> factory, string? key = null, bool overwriteExisting = false)
+        Result RegisterService<TInterface>(Func<IServiceLibrary, TInterface> factory, string? key = null)
             where TInterface : class;
 
         /// <summary>
@@ -67,9 +64,8 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// <param name="interfaceType">The type of the interface.</param>
         /// <param name="factory">A factory that is used to create the instance.</param>
         /// <param name="key">The key to store the service under.</param>
-        /// <param name="overwriteExisting">Overwrite an existing service if a collision occurs (recommended to keep false!).</param>
         /// <returns><see langword="true"/> if the service was successfully registered, <see langword="false"/> if not.</returns>
-        bool RegisterService(Type interfaceType, Func<IServiceLibrary, object> factory, string? key = null, bool overwriteExisting = false);
+        Result RegisterService(Type interfaceType, Func<IServiceLibrary, object> factory, string? key = null);
 
         /// <summary>
         /// Registers a service to the library.
@@ -78,9 +74,8 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         /// <param name="factory">A factory that is used to create the instance.</param>
         /// <param name="key">The key to store the service under.</param>
-        /// <param name="overwriteExisting">Overwrite an existing service if a collision occurs (recommended to keep false!).</param>
         /// <returns><see langword="true"/> if the service was successfully registered, <see langword="false"/> if not.</returns>
-        bool RegisterService<TInterface, TImplementation>(Func<IServiceLibrary, TInterface>? factory, string? key = null, bool overwriteExisting = false)
+        Result RegisterService<TInterface, TImplementation>(Func<IServiceLibrary, TInterface>? factory, string? key = null)
              where TInterface : class
              where TImplementation : class;
 
@@ -91,8 +86,7 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// <param name="implementationType">The type of the implementation.</param>
         /// <param name="factory">A factory that is used to create the instance.</param>
         /// <param name="key">The key to store the service under.</param>
-        /// <param name="overwriteExisting">Overwrite an existing service if a collision occurs (recommended to keep false!).</param>
         /// <returns><see langword="true"/> if the service was successfully registered, <see langword="false"/> if not.</returns>
-        bool RegisterService(Type interfaceType, Type implementationType, Func<IServiceLibrary, object>? factory, string? key = null, bool overwriteExisting = false);
+        Result RegisterService(Type interfaceType, Type implementationType, Func<IServiceLibrary, object>? factory, string? key = null);
     }
 }

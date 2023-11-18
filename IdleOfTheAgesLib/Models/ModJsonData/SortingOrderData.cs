@@ -3,7 +3,7 @@
     /// Allows for sorting elements in different ways.
     /// <para>Elements that use <see cref="After"/> are considered as having the same <see cref="Order"/> as the element they are referring.</para>
     /// </summary>
-    public class SortingOrder {
+    public class SortingOrderData {
         /// <summary>
         /// The element that should precede this element.
         /// </summary>
