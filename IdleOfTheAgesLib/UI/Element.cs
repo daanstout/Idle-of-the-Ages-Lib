@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,7 +8,7 @@ namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// Base class for building a visual element container.
     /// </summary>
-    public abstract class Element {
+    public abstract class Element : IElement {
         /// <summary>
         /// The child elements of this element.
         /// </summary>
@@ -33,6 +34,7 @@ namespace IdleOfTheAgesLib.UI {
         /// <summary>
         /// Initializes the element.
         /// </summary>
+        [Obsolete("Initialization happens with Initialize method that requires a data model to be passed into.")]
         public virtual void Initialize() { }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace IdleOfTheAgesLib.UI {
         /// <para>This function breaks down and rebuilds from the ground up when called.</para>
         /// </summary>
         /// <returns>Returns its <see cref="VisualElement"/> to show.</returns>
-        public abstract VisualElement Rebuild();
+        public abstract VisualElement GetVisualElement();
 
         /// <summary>
         /// Applies a <see cref="IManipulator"/> on the <see cref="VisualElement"/>.
@@ -52,29 +54,54 @@ namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// Base class for building a visual element container.
     /// </summary>
-    public abstract class Element<T> : Element
-        where T : VisualElement, new() {
-        private readonly T targetElement;
+    public abstract class Element<TElement, TDataModel> : Element, IElement<TDataModel>
+        where TElement : VisualElement, new() {
+        /// <summary>
+        /// The data for the visual element.
+        /// </summary>
+        protected TDataModel Data => data;
+
+        private readonly TElement targetElement;
+        private TDataModel data;
+        private bool dirty = true;
 
         /// <summary>
-        /// Instantiates a new <see cref="Element{T}"/> object.
+        /// Instantiates a new <see cref="Element{TElement, TDataModel}"/> object.
         /// </summary>
         protected Element() : base() {
-            targetElement = new T {
+            targetElement = new TElement {
                 name = GetType().Name
             };
+            data = default!;
+        }
+
+        /// <summary>
+        /// Should not be used. Throws an exception. Instead, call <see cref="Initialize(TDataModel)"/>.
+        /// </summary>
+        [Obsolete("Use initialize(TDataModel)")]
+        public override void Initialize() => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public void Initialize(TDataModel data) {
+            this.data = data;
+            dirty = true;
         }
 
         /// <inheritdoc/>
-        public sealed override VisualElement Rebuild() {
-            return RebuildInternal();
+        public sealed override VisualElement GetVisualElement() {
+            if (dirty) {
+                dirty = false;
+                return RebuildInternal();
+            } else {
+                return targetElement;
+            }
         }
 
         /// <summary>
         /// Internal rebuild function that returns the target visual element generically.
         /// </summary>
         /// <returns>The target element.</returns>
-        protected virtual T RebuildInternal() {
+        protected virtual TElement RebuildInternal() {
             targetElement.Clear();
 
             return targetElement;

@@ -18,7 +18,13 @@ namespace IdleOfTheAgesLib {
         /// Implicitly casts a <see cref="Result"/> object to a <see cref="bool"/>.
         /// </summary>
         /// <param name="result">The result object to cast.</param>
-        public static implicit operator bool(Result result) => result != null && result.Value;
+        public static implicit operator bool(Result result) {
+            if (result == null) {
+                throw new InvalidOperationException("Result is null. Always return an instance of the Result class and pass `false` as the value!");
+            }
+
+            return result.Value && result.Exception == null;
+        }
 
         /// <summary>
         /// Implicitly casts a <see cref="bool"/> value to a <see cref="Result"/>.
@@ -68,16 +74,52 @@ namespace IdleOfTheAgesLib {
             Value = value;
             ErrorReason = errorReason;
             Exception = exception;
+
+            if (!string.IsNullOrWhiteSpace(errorReason) && exception == null) {
+                Exception = new Exception($"An error occured while performing the action: {errorReason}");
+            }
         }
 
         /// <summary>
-        /// Implicitly casts a <see cref="Result"/> object to a <typeparamref name="T"/>.
+        /// Throws an exception if the <see cref="Result{T}"/> object is in an invalid state.
         /// </summary>
-        /// <param name="result">The result object to cast.</param>
-        public static implicit operator T(Result<T> result) => result == null ? default! : result.Value;
+        public void ThrowIfInvalid() {
+            if (!this) {
+                throw Exception ?? new Exception("Undefined error occured!");
+            }
+        }
 
         /// <summary>
-        /// Implicitly casts a <typeparamref name="T"/> value to a <see cref="Result"/>.
+        /// Implicitly casts a <see cref="Result{T}"/> object to a bool.
+        /// <para>This returns <see langword="true"/> if the call was successful, and <see langword="false"/> if something went wrong.</para>
+        /// </summary>
+        /// <param name="result">The result object to cast.</param>
+        public static implicit operator bool(Result<T> result) {
+            if (result == null) {
+                throw new InvalidOperationException("Result is null. Always return an instance of the Result class and pass `null` as the value!");
+            }
+
+            return result.Exception == null;
+        }
+
+        /// <summary>
+        /// Implicitly casts a <see cref="Result{T}"/> object to a <typeparamref name="T"/>.
+        /// </summary>
+        /// <param name="result">The result object to cast.</param>
+        public static implicit operator T(Result<T> result) {
+            if (result == null) {
+                throw new InvalidOperationException("Result is null. Always return an instance of the Result class and pass `null` as the value!");
+            }
+
+            if (result.Exception != null) {
+                throw result.Exception;
+            }
+
+            return result.Value;
+        }
+
+        /// <summary>
+        /// Implicitly casts a <typeparamref name="T"/> value to a <see cref="Result{T}"/>.
         /// </summary>
         /// <param name="value">The bool value to cast.</param>
         public static implicit operator Result<T>(T value) => new Result<T>(value);

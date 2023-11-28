@@ -22,5 +22,11 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public string SkillUI { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// The page group the skill should be filed under.
+        /// </summary>
+        [JsonProperty]
+        public string PageGroup { get; private set; } = string.Empty;
     }
 }

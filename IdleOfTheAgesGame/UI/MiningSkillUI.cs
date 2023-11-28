@@ -4,7 +4,7 @@ using IdleOfTheAgesLib.UI;
 using UnityEngine.UIElements;
 
 namespace IdleOfTheAgesGame.UI {
-    public class MiningSkillUI : Element<Box> {
+    public class MiningSkillUI : Element<Box, object> {
         private readonly ITranslationService translationService;
 
         public MiningSkillUI(ITranslationService translationService) {

@@ -16,12 +16,12 @@
         /// <summary>
         /// The flat modifier that should be applied.
         /// </summary>
-        public float flatModifier { get; set; }
+        public float FlatModifier { get; set; }
 
         /// <summary>
         /// The percent modifier that shouldbe applied.
         /// </summary>
-        public float percentModifier { get; }
+        public float PercentModifier { get; }
 
         /// <summary>
         /// Instantiates a new instance of the Modifier Data class.

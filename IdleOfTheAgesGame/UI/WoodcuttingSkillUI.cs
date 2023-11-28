@@ -4,7 +4,7 @@ using IdleOfTheAgesLib.UI;
 using UnityEngine.UIElements;
 
 namespace IdleOfTheAgesGame.UI {
-    public class WoodcuttingSkillUI : Element<Box> {
+    public class WoodcuttingSkillUI : Element<Box, object> {
         private readonly ITranslationService translationService;
 
         public WoodcuttingSkillUI(ITranslationService translationService) {

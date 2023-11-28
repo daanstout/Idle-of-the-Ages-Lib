@@ -44,5 +44,11 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public bool RequiredForCompletion { get; private set; }
+
+        /// <summary>
+        /// The item's tag. This indicates what type of item it is and is used for things such as storage and equipping.
+        /// </summary>
+        [JsonProperty]
+        public string Tag { get; private set; } = string.Empty;
     }
 }

@@ -25,13 +25,6 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         object Get(Type type, string? key = null);
 
         /// <summary>
-        /// Obtains instances for the provided <paramref name="types"/>,
-        /// </summary>
-        /// <param name="types">The parameters to obtain instances for.</param>
-        /// <returns>An <see cref="Array"/> containing the instances in order.</returns>
-        object[] GetInstances(IEnumerable<ParameterInfo> types);
-
-        /// <summary>
         /// Obtains a list of the names of all registered services that can be obtained.
         /// </summary>
         /// <returns>A list of names of all registered services.</returns>

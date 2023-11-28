@@ -27,6 +27,12 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         /// </summary>
         /// <param name="instance">The instance to use.</param>
         void ToInstance(object instance);
+
+        /// <summary>
+        /// Sets the type created instances should be.
+        /// </summary>
+        /// <param name="instanceType">The type created instances should be.</param>
+        void SetInstanceType(Type instanceType);
     }
 
     /// <summary>

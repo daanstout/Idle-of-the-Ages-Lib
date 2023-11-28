@@ -1,44 +1,40 @@
-﻿using IdleOfTheAgesLib.UI;
-
-using System;
+﻿using System;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
-    /// A library that contains the registered element pieces.
-    /// <para>With <see cref="Create{TElement}(string, string)"/>, an instance can be created.
-    /// Afterwards, this instance can also be obtained through the <see cref="IUIService"/>.</para>
+    /// A library that registers UI Elements so they can be used by <see cref="IUIManager"/>s.
     /// </summary>
     public interface IElementLibrary {
         /// <summary>
         /// Registers an element to the library.
         /// </summary>
+        /// <typeparam name="TInterface">The interface of the element to register.</typeparam>
         /// <typeparam name="TElement">The type of the element to register.</typeparam>
-        /// <param name="identifier">The identifier of the element.</param>
-        Result RegisterElement<TElement>(string? identifier = null);
+        /// <param name="key">The key of the element.</param>
+        Result RegisterElement<TInterface, TElement>(string? key = null) where TInterface : IElement where TElement : Element;
 
         /// <summary>
         /// Registers an element to the library.
         /// </summary>
-        /// <param name="type">The type of the element to register.</param>
-        /// <param name="identifier">The identifier of the element.</param>
-        Result RegisterElement(Type type, string? identifier = null);
+        /// <param name="interfaceType">The type of the interface of the element to register.</param>
+        /// <param name="elementType">The type of the element to register.</param>
+        /// <param name="key">The key of the element.</param>
+        Result RegisterElement(Type interfaceType, Type elementType, string? key = null);
 
         /// <summary>
-        /// Creates a new instance of an element with the specified identifier.
+        /// Gets the element registered for the provided interface.
         /// </summary>
-        /// <typeparam name="TElement">The type of the element to create.</typeparam>
-        /// <param name="instanceIdentifier">The identifier for the newly created element.</param>
-        /// <param name="identifier">The identifier of the element to create.</param>
-        /// <returns>The newly created element.</returns>
-        Result<TElement> Create<TElement>(string instanceIdentifier, string? identifier = null) where TElement : Element;
+        /// <typeparam name="TElement">The interface to get the element for.</typeparam>
+        /// <param name="key">The key the element is stored under.</param>
+        /// <returns>The requested element.</returns>
+        Result<TElement> GetElement<TElement>(string? key = null) where TElement : IElement;
 
         /// <summary>
-        /// Creates a new instance of an element with the specified identifier.
+        /// Gets the element registered for the provided interface.
         /// </summary>
-        /// <param name="type">The type of the element to create.</param>
-        /// <param name="instanceIdentifier">The identifier for the newly created element.</param>
-        /// <param name="identifier">The identifier of the element to create.</param>
-        /// <returns>The newly created element.</returns>
-        Result<Element> Create(Type type, string instanceIdentifier, string? identifier = null);
+        /// <param name="interfaceType">The interface to get the element for.</param>
+        /// <param name="key">The key the element is stored under.</param>
+        /// <returns>The requested element.</returns>
+        Result<IElement> GetElement(Type interfaceType, string? key = null);
     }
 }

@@ -1,7 +1,8 @@
-﻿namespace IdleOfTheAgesLib.UI.Elements {
+﻿using IdleOfTheAgesLib.UI.Models;
+
+namespace IdleOfTheAgesLib.UI.Elements {
     /// <summary>
     /// The sidebar element of the game.
     /// </summary>
-    public interface ISidebarElement {
-    }
+    public interface ISidebarElement : IElement<SidebarElementModel> { }
 }

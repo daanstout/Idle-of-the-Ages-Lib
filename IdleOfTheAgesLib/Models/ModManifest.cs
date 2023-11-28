@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 
+using System;
+
 namespace IdleOfTheAgesLib.Data {
     /// <summary>
     /// The data object of a mod's manifest.json.
@@ -22,5 +24,11 @@ namespace IdleOfTheAgesLib.Data {
         /// </summary>
         [JsonProperty("mod_class")]
         public string ModClass { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The dependencies of this mod.
+        /// </summary>
+        [JsonProperty("dependencies")]
+        public string[] Dependencies { get; set; } = Array.Empty<string>();
     }
 }
