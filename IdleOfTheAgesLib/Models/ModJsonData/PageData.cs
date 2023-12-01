@@ -4,7 +4,7 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
     /// Represents a page in the <see cref="PageGroupData"/>.
     /// </summary>
-    public class PageData : BaseDataElement {
+    public class PageData : ThumbnailDataElement {
         /// <summary>
         /// The type of pages available.
         /// </summary>
@@ -30,5 +30,11 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public string TargetID { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// The ID of the page group this page belongs to.
+        /// </summary>
+        [JsonProperty]
+        public string PageGroup { get; private set; } = string.Empty;
     }
 }

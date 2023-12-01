@@ -9,18 +9,18 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// The namespace of the object.
         /// </summary>
         public string Namespace { get; set; } = string.Empty;
-        
-        /// <summary>
-        /// The name of the object.
-        /// </summary>
-        [JsonProperty]
-        public string Name { get; private set; } = string.Empty;
 
         /// <summary>
         /// The ID of the object.
         /// </summary>
         [JsonProperty]
         public string ID { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// The name of the object.
+        /// </summary>
+        [JsonProperty]
+        public string Name { get; private set; } = string.Empty;
 
         /// <summary>
         /// Gets the object's namespaced ID.

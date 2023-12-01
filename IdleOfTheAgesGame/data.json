@@ -61,8 +61,14 @@
         {
             "id": "woodcutting_page",
             "name": "Woodcutting Page",
+            "translation_key": "Woodcutting",
+            "sorting_order": {
+                "order": 0
+            },
+            "thumbnail": "IdleOfTheAgesGame:tree",
             "page_type": "skill",
-            "skill_id": "IdleOfTheAgesGame:woodcutting"
+            "target_id": "IdleOfTheAgesGame:woodcutting",
+            "page_group": "IdleOfTheAgesGame:Generating"
         }
     ],
     "items": [
