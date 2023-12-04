@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.Models.ModJsonData;
+﻿// <copyright file="ISkillService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.Models.ModJsonData;
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +13,7 @@ namespace IdleOfTheAgesLib.Skills {
     /// </summary>
     public interface ISkillService {
         /// <summary>
-        /// The skill that should be shown.
+        /// Gets the skill that should be shown.
         /// </summary>
         SkillImplementation CurrentlyShowingSkill { get; }
 
@@ -22,6 +26,7 @@ namespace IdleOfTheAgesLib.Skills {
         /// Registers the skill data for a skill to the game.
         /// </summary>
         /// <param name="skillData">The skill data to register.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterSkillData(SkillData skillData);
 
         /// <summary>
@@ -29,6 +34,7 @@ namespace IdleOfTheAgesLib.Skills {
         /// </summary>
         /// <typeparam name="TSkill">The type of the skill to register.</typeparam>
         /// <param name="skillID">The ID of the skill.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterSkillImplementation<TSkill>(string skillID) where TSkill : SkillImplementation;
 
         /// <summary>
@@ -36,6 +42,7 @@ namespace IdleOfTheAgesLib.Skills {
         /// </summary>
         /// <param name="skillType">The type of the skill to register.</param>
         /// <param name="skillID">The ID of the skill.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterSkillImplementation(Type skillType, string skillID);
 
         /// <summary>
@@ -48,6 +55,7 @@ namespace IdleOfTheAgesLib.Skills {
         /// Changes the skill that is being shown.
         /// </summary>
         /// <param name="skillID">The ID of the skill that should be shown.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result ChangeShowingSkill(string skillID);
     }
 }

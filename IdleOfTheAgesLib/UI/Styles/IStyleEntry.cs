@@ -1,4 +1,8 @@
-﻿using UnityEngine.UIElements;
+﻿// <copyright file="IStyleEntry.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using UnityEngine.UIElements;
 
 namespace IdleOfTheAgesLib.UI.Styles {
     /// <summary>

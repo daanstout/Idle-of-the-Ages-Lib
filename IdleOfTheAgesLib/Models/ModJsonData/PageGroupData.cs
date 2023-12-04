@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="PageGroupData.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
 
 namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>

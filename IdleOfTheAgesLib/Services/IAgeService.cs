@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.Models.ModJsonData;
+﻿// <copyright file="IAgeService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.Models.ModJsonData;
 
 namespace IdleOfTheAgesLib.Skills {
     /// <summary>
@@ -11,6 +15,7 @@ namespace IdleOfTheAgesLib.Skills {
         /// <para>The namespace field will be filled in automatically.</para>
         /// </summary>
         /// <param name="age">The age to register.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterAge(AgeData age);
     }
 }

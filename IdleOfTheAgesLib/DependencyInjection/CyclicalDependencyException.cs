@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="CyclicalDependencyException.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 using System.Runtime.Serialization;
 
 namespace IdleOfTheAgesLib.DependencyInjection {
@@ -12,14 +16,14 @@ namespace IdleOfTheAgesLib.DependencyInjection {
         public CyclicalDependencyException() : base() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CyclicalDependencyException"/> class 
+        /// Initializes a new instance of the <see cref="CyclicalDependencyException"/> class.
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         public CyclicalDependencyException(string message) : base(message) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CyclicalDependencyException"/> class with a specified error 
+        /// Initializes a new instance of the <see cref="CyclicalDependencyException"/> class with a specified error.
         /// message and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>

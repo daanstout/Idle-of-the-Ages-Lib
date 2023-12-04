@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.UI.Elements;
+﻿// <copyright file="SkillSidebarModel.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI.Elements;
 
 using UnityEngine;
 
@@ -8,27 +12,27 @@ namespace IdleOfTheAgesLib.UI.Models {
     /// </summary>
     public class SkillSidebarModel {
         /// <summary>
-        /// The translated display text of the skill.
+        /// Gets or sets the translated display text of the skill.
         /// </summary>
         public string SkillDisplayText { get; set; } = string.Empty;
 
         /// <summary>
-        /// The ID of the skill.
+        /// Gets or sets the ID of the skill.
         /// </summary>
         public string SkillID { get; set; } = string.Empty;
 
         /// <summary>
-        /// The thumbnail for the skill.
+        /// Gets or sets the thumbnail for the skill.
         /// </summary>
         public Texture2D SkillThumbnail { get; set; } = null!;
 
         /// <summary>
-        /// The current level of the skill.
+        /// Gets or sets the current level of the skill.
         /// </summary>
         public int SkillLevel { get; set; }
 
         /// <summary>
-        /// The maximum level of the skill.
+        /// Gets or sets the maximum level of the skill.
         /// </summary>
         public int SkillMaxLevel { get; set; }
     }

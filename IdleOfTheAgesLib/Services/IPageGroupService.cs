@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.Models.ModJsonData;
+﻿// <copyright file="IPageGroupService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.Models.ModJsonData;
 
 using System.Collections.Generic;
 
@@ -11,12 +15,14 @@ namespace IdleOfTheAgesLib.Services {
         /// Registers a <see cref="PageGroupData"/>.
         /// </summary>
         /// <param name="pageGroup">The <see cref="PageGroupData"/> to register.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterPageGroup(PageGroupData pageGroup);
 
         /// <summary>
         /// Registers a <see cref="PageData"/>.
         /// </summary>
         /// <param name="page">The <see cref="PageData"/> to register.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterPage(PageData page);
 
         /// <summary>
@@ -28,6 +34,7 @@ namespace IdleOfTheAgesLib.Services {
         /// <summary>
         /// Gets all registered <see cref="PageData"/> within a <see cref="PageGroupData"/>.
         /// </summary>
+        /// <param name="pageGroupID">The ID of the page group to get the pages in.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with all <see cref="PageData"/> in the <see cref="PageGroupData"/>.</returns>
         IEnumerable<PageData> GetPagesInPageGroup(string pageGroupID);
 

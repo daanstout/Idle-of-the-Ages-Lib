@@ -1,7 +1,11 @@
-﻿using IdleOfTheAgesLib.Data;
+﻿// <copyright file="IMod.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
 using IdleOfTheAgesLib.DependencyInjection;
 
-namespace IdleOfTheAgesLib {
+namespace IdleOfTheAgesLib
+{
     /// <summary>
     /// The entry class for a Mod.
     /// <para>Mod initialization happens in steps:

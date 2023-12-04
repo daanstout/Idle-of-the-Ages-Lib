@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="IStorageService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System.Collections.Generic;
 
 namespace IdleOfTheAgesLib.Inventory {
     /// <summary>
@@ -11,6 +15,7 @@ namespace IdleOfTheAgesLib.Inventory {
         /// <typeparam name="TGroup">The storage group to add the item to.</typeparam>
         /// <param name="itemID">The item to add to the player's storage.</param>
         /// <param name="count">How many items to add.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result AddItem<TGroup>(string itemID, int count = 1) where TGroup : IStorageGroup;
 
         /// <summary>

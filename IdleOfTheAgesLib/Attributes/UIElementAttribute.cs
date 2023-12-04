@@ -1,27 +1,29 @@
-﻿using IdleOfTheAgesLib.UI;
+﻿// <copyright file="UIElementAttribute.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI;
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IdleOfTheAgesLib.Attributes {
     /// <summary>
     /// Indicates that the class creates <see cref="Element"/>s.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class UIElementAttribute : Attribute{
+    public class UIElementAttribute : Attribute {
         /// <summary>
-        /// The type of the interface this element implements.
+        /// Gets the type of the interface this element implements.
         /// </summary>
         public Type ElementInterface { get; }
 
         /// <summary>
-        /// The key to identify this class implementation.
+        /// Gets the key to identify this class implementation.
         /// </summary>
         public string? Key { get; }
 
         /// <summary>
-        /// Instantiates a new <see cref="UIElementAttribute"/>.
+        /// Initializes a new instance of the <see cref="UIElementAttribute"/> class.
         /// </summary>
         /// <param name="elementInterface">The type of the interface this element implements.</param>
         /// <param name="key">The key to identify this class implementation.</param>

@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿// <copyright file="PageData.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using Newtonsoft.Json;
 
 namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
@@ -13,26 +17,27 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
             /// Default value.
             /// </summary>
             None = 0,
+
             /// <summary>
             /// The page goes to a skill.
             /// </summary>
-            Skill
+            Skill,
         }
 
         /// <summary>
-        /// The type of page this is.
+        /// Gets the type of page this is.
         /// </summary>
         [JsonProperty]
         public PageTypeValues PageType { get; private set; } = PageTypeValues.None;
 
         /// <summary>
-        /// The ID of the target behind the page.
+        /// Gets the ID of the target behind the page.
         /// </summary>
         [JsonProperty]
         public string TargetID { get; private set; } = string.Empty;
 
         /// <summary>
-        /// The ID of the page group this page belongs to.
+        /// Gets the ID of the page group this page belongs to.
         /// </summary>
         [JsonProperty]
         public string PageGroup { get; private set; } = string.Empty;

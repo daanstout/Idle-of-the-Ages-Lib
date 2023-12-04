@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.Models.ModJsonData;
+﻿// <copyright file="IItemStack.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.Models.ModJsonData;
 
 using System.Collections.Generic;
 
@@ -10,22 +14,22 @@ namespace IdleOfTheAgesLib.Inventory
     public interface IItemStack
     {
         /// <summary>
-        /// The ID of the item this stack represents.
+        /// Gets the ID of the item this stack represents.
         /// </summary>
         public string ItemID { get; }
 
         /// <summary>
-        /// The data for this item.
+        /// Gets the data for this item.
         /// </summary>
         public ItemData ItemData { get; }
 
         /// <summary>
-        /// The metadata for this item.
+        /// Gets the metadata for this item.
         /// </summary>
         public Dictionary<string, string> Metadata { get; }
 
         /// <summary>
-        /// The amount of items that are in this stack.
+        /// Gets or sets the amount of items that are in this stack.
         /// </summary>
         public int StackSize { get; set; }
     }

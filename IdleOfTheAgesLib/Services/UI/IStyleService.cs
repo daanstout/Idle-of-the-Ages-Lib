@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.UI.Styles;
+﻿// <copyright file="IStyleService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI.Styles;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
@@ -6,10 +10,11 @@ namespace IdleOfTheAgesLib.UI {
     /// </summary>
     public interface IStyleService {
         /// <summary>
-        /// Adds a style to the collection
+        /// Adds a style to the collection.
         /// </summary>
         /// <param name="identifier">The identifier of the style.</param>
         /// <param name="json">The style in json format.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result AddStyle(string identifier, string json);
 
         /// <summary>

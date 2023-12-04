@@ -1,46 +1,51 @@
-﻿using UnityEngine;
+﻿// <copyright file="ElementInteracter.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// Allows for interacting with an <see cref="Element"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the <see cref="Element"/> this interactor should interact with.</typeparam>
     public abstract class ElementInteracter<T> : PointerManipulator where T : Element {
         /// <summary>
-        /// The element we are interacting with.
+        /// Gets the element we are interacting with.
         /// </summary>
-        protected readonly T element;
+        protected T Element => element;
 
         /// <summary>
-        /// The start position in world space of the element when dragging started.
+        /// Gets the start position in world space of the element when dragging started.
         /// </summary>
         protected Vector3 TargetStartPosition { get; private set; }
 
         /// <summary>
-        /// The start position of the pointer in world space when dragging started.
+        /// Gets the start position of the pointer in world space when dragging started.
         /// </summary>
         protected Vector3 PointerStartPosition { get; private set; }
 
         /// <summary>
-        /// The position of the pointer at the previous frame.
+        /// Gets the position of the pointer at the previous frame.
         /// </summary>
         protected Vector3 PointerPreviousPosition { get; private set; }
 
         /// <summary>
-        /// The change in pointer position from when the dragging started.
+        /// Gets the change in pointer position from when the dragging started.
         /// </summary>
         protected Vector3 PointerStartDelta { get; private set; }
 
         /// <summary>
-        /// The change in pointer position from the last frame.
+        /// Gets the change in pointer position from the last frame.
         /// </summary>
         protected Vector3 PointerFrameDelta { get; private set; }
 
+        private readonly T element;
         private bool enabled;
 
         /// <summary>
-        /// Instantiates a new <see cref="ElementInteracter{T}"/>.
+        /// Initializes a new instance of the <see cref="ElementInteracter{T}"/> class.
         /// </summary>
         /// <param name="target">The element we interact with.</param>
         protected ElementInteracter(T target) {

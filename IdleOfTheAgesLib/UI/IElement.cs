@@ -1,4 +1,6 @@
-﻿using IdleOfTheAgesLib.UI.Models;
+﻿// <copyright file="IElement.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
 
 using UnityEngine.UIElements;
 
@@ -19,7 +21,7 @@ namespace IdleOfTheAgesLib.UI {
     /// Base class for building a visual element container that requires initialization.
     /// </summary>
     /// <typeparam name="TDataModel">The type of the data model.</typeparam>
-    public interface IElement<TDataModel> : IElement{
+    public interface IElement<TDataModel> : IElement {
         /// <summary>
         /// Initializes the element.
         /// </summary>

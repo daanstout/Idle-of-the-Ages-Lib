@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.DependencyInjection;
+﻿// <copyright file="ServiceAttribute.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.DependencyInjection;
 
 using System;
 
@@ -17,29 +21,30 @@ namespace IdleOfTheAgesLib {
             /// The service is only for the mod itself.
             /// </summary>
             Private,
+
             /// <summary>
             /// The service can also be requested by other mods.
             /// </summary>
-            Public
+            Public,
         }
 
         /// <summary>
-        /// The type of the interface this service is implementing.
+        /// Gets the type of the interface this service is implementing.
         /// </summary>
         public Type InterfaceType { get; }
 
         /// <summary>
-        /// The key for identifying this service.
+        /// Gets the key for identifying this service.
         /// </summary>
         public string? Key { get; }
-        
+
         /// <summary>
-        /// Indicates whether this service should be public or private.
+        /// Gets indicates whether this service should be public or private.
         /// </summary>
         public ServiceLevelEnum ServiceLevel { get; }
 
         /// <summary>
-        /// Instantiates a new Service Attribute.
+        /// Initializes a new instance of the <see cref="ServiceAttribute"/> class.
         /// </summary>
         /// <param name="interfaceType">The Type of the interface the service is implemting.</param>
         /// <param name="key">The key for identifying the service.</param>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="Element.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -10,9 +14,11 @@ namespace IdleOfTheAgesLib.UI {
     /// </summary>
     public abstract class Element : IElement {
         /// <summary>
-        /// The child elements of this element.
+        /// Gets the child elements of this element.
         /// </summary>
-        protected readonly List<Element> childElements = new List<Element>();
+        protected List<Element> ChildElements => childElements;
+
+        private readonly List<Element> childElements = new List<Element>();
 
         /// <summary>
         /// Adds a child element to this element.
@@ -54,10 +60,12 @@ namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// Base class for building a visual element container.
     /// </summary>
+    /// <typeparam name="TElement">The type of the <see cref="VisualElement"/> this element should create.</typeparam>
+    /// <typeparam name="TDataModel">The type of the data model this element needs to render correctly.</typeparam>
     public abstract class Element<TElement, TDataModel> : Element, IElement<TDataModel>
         where TElement : VisualElement, new() {
         /// <summary>
-        /// The data for the visual element.
+        /// Gets the data for the visual element.
         /// </summary>
         protected TDataModel Data => data;
 
@@ -66,11 +74,11 @@ namespace IdleOfTheAgesLib.UI {
         private bool dirty = true;
 
         /// <summary>
-        /// Instantiates a new <see cref="Element{TElement, TDataModel}"/> object.
+        /// Initializes a new instance of the <see cref="Element{TElement, TDataModel}"/> class.
         /// </summary>
         protected Element() : base() {
             targetElement = new TElement {
-                name = GetType().Name
+                name = GetType().Name,
             };
             data = default!;
         }
@@ -97,16 +105,6 @@ namespace IdleOfTheAgesLib.UI {
             }
         }
 
-        /// <summary>
-        /// Internal rebuild function that returns the target visual element generically.
-        /// </summary>
-        /// <returns>The target element.</returns>
-        protected virtual TElement RebuildInternal() {
-            targetElement.Clear();
-
-            return targetElement;
-        }
-
         /// <inheritdoc/>
         public sealed override void ApplyManipulator(IManipulator manipulator) {
             targetElement.AddManipulator(manipulator);
@@ -118,6 +116,16 @@ namespace IdleOfTheAgesLib.UI {
         /// <param name="translation">How much to move it.</param>
         public void TranslateElement(Vector3 translation) {
             targetElement.transform.position += translation;
+        }
+
+        /// <summary>
+        /// Internal rebuild function that returns the target visual element generically.
+        /// </summary>
+        /// <returns>The target element.</returns>
+        protected virtual TElement RebuildInternal() {
+            targetElement.Clear();
+
+            return targetElement;
         }
 
         /// <summary>

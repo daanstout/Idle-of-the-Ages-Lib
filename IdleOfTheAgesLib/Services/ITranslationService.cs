@@ -1,10 +1,14 @@
-﻿namespace IdleOfTheAgesLib.Translation {
+﻿// <copyright file="ITranslationService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+namespace IdleOfTheAgesLib.Translation {
     /// <summary>
     /// Allows for translation of text.
     /// </summary>
     public interface ITranslationService {
         /// <summary>
-        /// The currently selected language.
+        /// Gets the currently selected language.
         /// </summary>
         public Language CurrentLanguage { get; }
 
@@ -12,6 +16,7 @@
         /// Changes the language of the game.
         /// </summary>
         /// <param name="language">The new game language.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         public Result ChangeLanguage(Language language);
 
         /// <summary>
@@ -26,6 +31,7 @@
         /// </summary>
         /// <param name="language">The language the file is for.</param>
         /// <param name="path">The path to the file.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         public Result LoadLanguagePath(Language language, string path);
     }
 }

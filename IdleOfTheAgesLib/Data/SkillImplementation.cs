@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.DependencyInjection;
+﻿// <copyright file="SkillImplementation.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.DependencyInjection;
 using IdleOfTheAgesLib.Models.ModJsonData;
 using IdleOfTheAgesLib.UI;
 
@@ -10,37 +14,37 @@ namespace IdleOfTheAgesLib.Skills {
     /// </summary>
     public abstract class SkillImplementation {
         /// <summary>
-        /// The namespace the skill exists in.
+        /// Gets the namespace the skill exists in.
         /// </summary>
         public abstract string Namespace { get; }
 
         /// <summary>
-        /// The data for the skill.
+        /// Gets the data for the skill.
         /// </summary>
         public SkillData SkillData { get; }
 
         /// <summary>
-        /// The current level of the skill.
+        /// Gets or sets the current level of the skill.
         /// </summary>
         public int CurrentSkillLevel { get; set; }
 
         /// <summary>
-        /// The maximum level of this skill.
+        /// Gets the maximum level of this skill.
         /// </summary>
         public int MaxSkillLevel { get; }
 
         /// <summary>
-        /// The skill's namespaced ID.
+        /// Gets the skill's namespaced ID.
         /// </summary>
         public string NamespacedID => $"{Namespace}:{SkillData.ID}";
 
         /// <summary>
-        /// The type of this class's skill UI <see cref="Element"/>.
+        /// Gets the type of this class's skill UI <see cref="Element"/>.
         /// </summary>
         public abstract Type SkillUI { get; }
 
         /// <summary>
-        /// Instantiates a new Skill instance.
+        /// Initializes a new instance of the <see cref="SkillImplementation"/> class.
         /// </summary>
         /// <param name="skillData">The json data for the skill.</param>
         protected SkillImplementation(SkillData skillData) {

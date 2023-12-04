@@ -1,10 +1,14 @@
-﻿namespace IdleOfTheAgesLib {
+﻿// <copyright file="ILogger.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+namespace IdleOfTheAgesLib {
     /// <summary>
     /// A logger to log information to.
     /// </summary>
     public interface ILogger {
         /// <summary>
-        /// The namespace the logger logs to.
+        /// Gets the namespace the logger logs to.
         /// </summary>
         string Namespace { get; }
 

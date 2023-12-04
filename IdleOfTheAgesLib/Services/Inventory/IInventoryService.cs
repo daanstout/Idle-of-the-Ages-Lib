@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="IInventoryService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System.Collections.Generic;
 
 namespace IdleOfTheAgesLib.Inventory {
     /// <summary>
@@ -9,6 +13,7 @@ namespace IdleOfTheAgesLib.Inventory {
         /// Adds an item to the player's inventory.
         /// </summary>
         /// <param name="item">The item to add to the player's inventory.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result AddItem(IItemStack item);
 
         /// <summary>

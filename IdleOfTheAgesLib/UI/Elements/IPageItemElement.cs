@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.UI.Models;
+﻿// <copyright file="IPageItemElement.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI.Models;
 
 namespace IdleOfTheAgesLib.UI.Elements {
     /// <summary>

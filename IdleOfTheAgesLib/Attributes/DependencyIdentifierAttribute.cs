@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="DependencyIdentifierAttribute.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace IdleOfTheAgesLib
 {
@@ -9,12 +13,12 @@ namespace IdleOfTheAgesLib
     public class DependencyIdentifierAttribute : Attribute
     {
         /// <summary>
-        /// The key of the dependency instance to obtain.
+        /// Gets or sets the key of the dependency instance to obtain.
         /// </summary>
         public string Key { get; set; }
 
         /// <summary>
-        /// Instantiates a new instance of the <see cref="DependencyIdentifierAttribute"/>.
+        /// Initializes a new instance of the <see cref="DependencyIdentifierAttribute"/> class.
         /// </summary>
         /// <param name="key">The key of the dependency instance to obtain.</param>
         public DependencyIdentifierAttribute(string key) => Key = key;

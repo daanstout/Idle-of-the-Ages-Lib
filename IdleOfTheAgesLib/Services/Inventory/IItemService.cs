@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.Models.ModJsonData;
+﻿// <copyright file="IItemService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.Models.ModJsonData;
 
 namespace IdleOfTheAgesLib.Inventory
 {
@@ -11,6 +15,7 @@ namespace IdleOfTheAgesLib.Inventory
         /// Registers an item to the service.
         /// </summary>
         /// <param name="item">The item to register.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         public Result RegisterItem(ItemData item);
 
         /// <summary>

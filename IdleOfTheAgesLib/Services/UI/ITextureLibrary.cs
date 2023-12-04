@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿// <copyright file="ITextureLibrary.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using UnityEngine;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
@@ -10,6 +14,7 @@ namespace IdleOfTheAgesLib.UI {
         /// </summary>
         /// <param name="textureID">The namespaced ID of the texture.</param>
         /// <param name="path">The path to the texture.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterTextures(string textureID, string path);
 
         /// <summary>

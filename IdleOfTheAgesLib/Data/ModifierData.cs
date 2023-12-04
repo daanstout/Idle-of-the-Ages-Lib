@@ -1,30 +1,34 @@
-﻿namespace IdleOfTheAgesLib.Data {
+﻿// <copyright file="ModifierData.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+namespace IdleOfTheAgesLib.Data {
     /// <summary>
     /// Data that modifies certain stats within the game.
     /// </summary>
     public class ModifierData {
         /// <summary>
-        /// The source of the modification data.
+        /// Gets the source of the modification data.
         /// </summary>
         public string ModifierSource { get; }
 
         /// <summary>
-        /// The target stat this modifier is affecting.
+        /// Gets the target stat this modifier is affecting.
         /// </summary>
         public string ModifierTarget { get; }
 
         /// <summary>
-        /// The flat modifier that should be applied.
+        /// Gets or sets the flat modifier that should be applied.
         /// </summary>
         public float FlatModifier { get; set; }
 
         /// <summary>
-        /// The percent modifier that shouldbe applied.
+        /// Gets the percent modifier that shouldbe applied.
         /// </summary>
         public float PercentModifier { get; }
 
         /// <summary>
-        /// Instantiates a new instance of the Modifier Data class.
+        /// Initializes a new instance of the <see cref="ModifierData"/> class.
         /// </summary>
         /// <param name="modifierSource">The source of the modification data.</param>
         /// <param name="modifierTarget">The target stat this modifier is affecting.</param>

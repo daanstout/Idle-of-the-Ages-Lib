@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="Result.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace IdleOfTheAgesLib {
     /// <summary>
@@ -6,7 +10,7 @@ namespace IdleOfTheAgesLib {
     /// </summary>
     public class Result : Result<bool> {
         /// <summary>
-        /// Instantiates a new Result object.
+        /// Initializes a new instance of the <see cref="Result"/> class.
         /// </summary>
         /// <param name="value">Whether or not the call was a success.</param>
         /// <param name="errorReason">The reason the call failed.</param>
@@ -48,24 +52,25 @@ namespace IdleOfTheAgesLib {
     /// <summary>
     /// A result object that can be returned with information.
     /// </summary>
+    /// <typeparam name="T">The type of the object that is encased in this object.</typeparam>
     public class Result<T> {
         /// <summary>
-        /// The target object.
+        /// Gets the target object.
         /// </summary>
         public T Value { get; }
 
         /// <summary>
-        /// The reason a function call failed.
+        /// Gets the reason a function call failed.
         /// </summary>
         public string? ErrorReason { get; }
 
         /// <summary>
-        /// The Exception that was thrown.
+        /// Gets the Exception that was thrown.
         /// </summary>
         public Exception? Exception { get; }
 
         /// <summary>
-        /// Instantiates a new Result object.
+        /// Initializes a new instance of the <see cref="Result{T}"/> class.
         /// </summary>
         /// <param name="value">The target object.</param>
         /// <param name="errorReason">The reason the call failed.</param>

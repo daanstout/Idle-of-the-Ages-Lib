@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="IElementLibrary.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
@@ -11,6 +15,7 @@ namespace IdleOfTheAgesLib.UI {
         /// <typeparam name="TInterface">The interface of the element to register.</typeparam>
         /// <typeparam name="TElement">The type of the element to register.</typeparam>
         /// <param name="key">The key of the element.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterElement<TInterface, TElement>(string? key = null) where TInterface : IElement where TElement : Element;
 
         /// <summary>
@@ -19,6 +24,7 @@ namespace IdleOfTheAgesLib.UI {
         /// <param name="interfaceType">The type of the interface of the element to register.</param>
         /// <param name="elementType">The type of the element to register.</param>
         /// <param name="key">The key of the element.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterElement(Type interfaceType, Type elementType, string? key = null);
 
         /// <summary>

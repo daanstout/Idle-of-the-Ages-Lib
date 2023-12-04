@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="IResolver.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace IdleOfTheAgesLib.DependencyInjection {
     /// <summary>
@@ -6,12 +10,12 @@ namespace IdleOfTheAgesLib.DependencyInjection {
     /// </summary>
     public interface IResolver {
         /// <summary>
-        /// A factory that can be used to resolve the instance.
+        /// Gets or sets a factory that can be used to resolve the instance.
         /// </summary>
         Func<IServiceLibrary, object>? Factory { get; set; }
 
         /// <summary>
-        /// A boolean that indicates whether or not the target is a singleton.
+        /// Gets or sets a value indicating whether a boolean that indicates whether or not the target is a singleton.
         /// </summary>
         bool IsSingleton { get; set; }
 
@@ -38,6 +42,7 @@ namespace IdleOfTheAgesLib.DependencyInjection {
     /// <summary>
     /// A resolver to resolve a dependency to an instance.
     /// </summary>
+    /// <typeparam name="TType">The type the resolver resolves for.</typeparam>
     public interface IResolver<TType> : IResolver
         where TType : class {
         /// <summary>

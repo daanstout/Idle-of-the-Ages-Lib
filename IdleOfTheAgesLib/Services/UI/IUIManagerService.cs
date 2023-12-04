@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="IUIManagerService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
@@ -11,6 +15,7 @@ namespace IdleOfTheAgesLib.UI {
         /// <typeparam name="TManagerInterface">The type of the UI manager interface.</typeparam>
         /// <typeparam name="TManagerImplementation">The type of the UI manager implementation.</typeparam>
         /// <param name="key">The key to get the specific manager.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterManager<TManagerInterface, TManagerImplementation>(string? key = null) where TManagerInterface : IUIManager where TManagerImplementation : TManagerInterface;
 
         /// <summary>
@@ -19,6 +24,7 @@ namespace IdleOfTheAgesLib.UI {
         /// <param name="managerInterfaceType">The type of the UI manager interface.</param>
         /// <param name="managerImplementationType">The type of the UI manager implementation.</param>
         /// <param name="key">The key to get the specific manager.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result RegisterManager(Type managerInterfaceType, Type managerImplementationType, string? key = null);
 
         /// <summary>

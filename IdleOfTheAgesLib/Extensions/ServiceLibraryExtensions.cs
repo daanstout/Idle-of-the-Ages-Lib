@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.DependencyInjection;
+﻿// <copyright file="ServiceLibraryExtensions.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.DependencyInjection;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +15,7 @@ namespace IdleOfTheAgesLib.Extensions.ServiceLibrary {
     /// </summary>
     public static class ServiceLibraryExtensions {
         /// <summary>
-        /// Obtains instances for the provided <paramref name="types"/>,
+        /// Obtains instances for the provided <paramref name="types"/>.
         /// </summary>
         /// <param name="serviceLibrary">The service library to get the instances from.</param>
         /// <param name="types">The parameters to obtain instances for.</param>

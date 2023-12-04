@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿// <copyright file="SkillData.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using Newtonsoft.Json;
 
 namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
@@ -6,25 +10,25 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// </summary>
     public class SkillData : ThumbnailDataElement {
         /// <summary>
-        /// The skill category this Skill falls under.
+        /// Gets the skill category this Skill falls under.
         /// </summary>
         [JsonProperty]
         public string SkillCategory { get; private set; } = string.Empty;
-        
+
         /// <summary>
-        /// The age in which this skill is unlocked.
+        /// Gets the age in which this skill is unlocked.
         /// </summary>
         [JsonProperty]
         public string UnlockAge { get; private set; } = string.Empty;
 
         /// <summary>
-        /// The ID of the skill's UI class.
+        /// Gets the ID of the skill's UI class.
         /// </summary>
         [JsonProperty]
         public string SkillUI { get; private set; } = string.Empty;
 
         /// <summary>
-        /// The page group the skill should be filed under.
+        /// Gets the page group the skill should be filed under.
         /// </summary>
         [JsonProperty]
         public string PageGroup { get; private set; } = string.Empty;

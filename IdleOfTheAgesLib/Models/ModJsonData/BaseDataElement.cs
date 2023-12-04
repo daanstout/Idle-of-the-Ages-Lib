@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿// <copyright file="BaseDataElement.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using Newtonsoft.Json;
 
 namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// <summary>
@@ -6,18 +10,18 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// </summary>
     public abstract class BaseDataElement {
         /// <summary>
-        /// The namespace of the object.
+        /// Gets or sets the namespace of the object.
         /// </summary>
         public string Namespace { get; set; } = string.Empty;
 
         /// <summary>
-        /// The ID of the object.
+        /// Gets the ID of the object.
         /// </summary>
         [JsonProperty]
         public string ID { get; private set; } = string.Empty;
 
         /// <summary>
-        /// The name of the object.
+        /// Gets the name of the object.
         /// </summary>
         [JsonProperty]
         public string Name { get; private set; } = string.Empty;
@@ -33,13 +37,13 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// </summary>
     public abstract class VisisbleDataElement : BaseDataElement {
         /// <summary>
-        /// The translation key of the element.
+        /// Gets the translation key of the element.
         /// </summary>
         [JsonProperty]
         public string TranslationKey { get; private set; } = string.Empty;
 
         /// <summary>
-        /// The Age that this age should be after.
+        /// Gets or sets the Age that this age should be after.
         /// </summary>
         [JsonProperty]
         public SortingOrderData SortingOrder { get; set; } = new SortingOrderData();
@@ -50,7 +54,7 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
     /// </summary>
     public abstract class ThumbnailDataElement : VisisbleDataElement {
         /// <summary>
-        /// The thumbnail ID of the object.
+        /// Gets the thumbnail ID of the object.
         /// </summary>
         [JsonProperty]
         public string? Thumbnail { get; private set; } = string.Empty;

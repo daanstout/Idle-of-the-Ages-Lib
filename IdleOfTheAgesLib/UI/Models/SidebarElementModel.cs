@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.UI.Elements;
+﻿// <copyright file="SidebarElementModel.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI.Elements;
 
 using System.Collections.Generic;
 
@@ -8,12 +12,12 @@ namespace IdleOfTheAgesLib.UI.Models {
     /// </summary>
     public class SidebarElementModel {
         /// <summary>
-        /// The skill elements to render in the sidebar.
+        /// Gets the skill elements to render in the sidebar.
         /// </summary>
         public IReadOnlyCollection<ISkillSidebarElement> SkillElements { get; }
 
         /// <summary>
-        /// Initializes a new Sidebar Element Model.
+        /// Initializes a new instance of the <see cref="SidebarElementModel"/> class.
         /// </summary>
         /// <param name="skillElements">The skill elements to render in the sidebar.</param>
         public SidebarElementModel(IReadOnlyCollection<ISkillSidebarElement> skillElements) {

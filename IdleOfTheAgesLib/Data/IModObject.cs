@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.DependencyInjection;
+﻿// <copyright file="IModObject.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.DependencyInjection;
 
 namespace IdleOfTheAgesLib {
     /// <summary>
@@ -6,22 +10,22 @@ namespace IdleOfTheAgesLib {
     /// </summary>
     public interface IModObject {
         /// <summary>
-        /// A logger to log data to.
+        /// Gets a logger to log data to.
         /// </summary>
         ILogger Logger { get; }
 
         /// <summary>
-        /// The instance of the mod's initializer class.
+        /// Gets the instance of the mod's initializer class.
         /// </summary>
         IMod Mod { get; }
 
         /// <summary>
-        /// The namespace of the mod.
+        /// Gets the namespace of the mod.
         /// </summary>
         string Namespace { get; }
 
         /// <summary>
-        /// The service library containing this mod's services.
+        /// Gets the service library containing this mod's services.
         /// </summary>
         IServiceLibrary ServiceLibrary { get; }
     }

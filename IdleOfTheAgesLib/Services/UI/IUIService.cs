@@ -1,6 +1,9 @@
-﻿using IdleOfTheAgesLib.UI;
+﻿// <copyright file="IUIService.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
 
-namespace IdleOfTheAgesLib.UI {
+namespace IdleOfTheAgesLib.UI
+{
     /// <summary>
     /// A service to interact with the UI elements that exist.
     /// </summary>
@@ -16,6 +19,7 @@ namespace IdleOfTheAgesLib.UI {
         /// </summary>
         /// <param name="element">The element that was added.</param>
         /// <param name="identifier">The unique identifier of the element.</param>
+        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
         Result AddElement(Element element, string identifier);
 
         /// <summary>

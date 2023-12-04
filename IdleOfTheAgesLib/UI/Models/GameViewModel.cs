@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.UI.Elements;
+﻿// <copyright file="GameViewModel.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI.Elements;
 
 namespace IdleOfTheAgesLib.UI.Models {
     /// <summary>
@@ -6,8 +10,14 @@ namespace IdleOfTheAgesLib.UI.Models {
     /// </summary>
     public class GameViewModel {
         /// <summary>
-        /// The sidebar element.
+        /// Gets the sidebar element.
         /// </summary>
-        public ISidebarElement SidebarElement { get; set; } = null!;
+        public IPageListElement SidebarElement { get; } = null!;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameViewModel"/> class.
+        /// </summary>
+        /// <param name="sidebarElement">The page list to render in the sidebar.</param>
+        public GameViewModel(IPageListElement sidebarElement) => SidebarElement = sidebarElement;
     }
 }

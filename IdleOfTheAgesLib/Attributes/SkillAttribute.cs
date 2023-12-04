@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="SkillAttribute.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using System;
 
 namespace IdleOfTheAgesLib.Skills {
     /// <summary>
@@ -7,12 +11,12 @@ namespace IdleOfTheAgesLib.Skills {
     [AttributeUsage(AttributeTargets.Class)]
     public class SkillAttribute : Attribute {
         /// <summary>
-        /// The ID of the skill this class is implementing.
+        /// Gets the ID of the skill this class is implementing.
         /// </summary>
         public string SkillID { get; }
 
         /// <summary>
-        /// Instantiates a new Skill Attribute.
+        /// Initializes a new instance of the <see cref="SkillAttribute"/> class.
         /// </summary>
         /// <param name="skillID">The ID of the skill.</param>
         public SkillAttribute(string skillID) {

@@ -1,4 +1,8 @@
-﻿using IdleOfTheAgesLib.UI.Models;
+﻿// <copyright file="ISkillSidebarElement.cs" company="DaanStout">
+// Copyright (c) DaanStout. All rights reserved.
+// </copyright>
+
+using IdleOfTheAgesLib.UI.Models;
 
 using System;
 
