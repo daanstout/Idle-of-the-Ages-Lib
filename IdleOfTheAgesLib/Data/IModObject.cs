@@ -4,6 +4,8 @@
 
 using IdleOfTheAgesLib.DependencyInjection;
 
+using System.Reflection;
+
 namespace IdleOfTheAgesLib {
     /// <summary>
     /// Contains all relevant mod data.
@@ -28,5 +30,15 @@ namespace IdleOfTheAgesLib {
         /// Gets the service library containing this mod's services.
         /// </summary>
         IServiceLibrary ServiceLibrary { get; }
+
+        /// <summary>
+        /// Gets the service registry from this mod to register services to.
+        /// </summary>
+        IServiceRegistry ServiceRegistry { get; }
+
+        /// <summary>
+        /// Gets the mod's assembly.
+        /// </summary>
+        Assembly ModAssembly { get; }
     }
 }

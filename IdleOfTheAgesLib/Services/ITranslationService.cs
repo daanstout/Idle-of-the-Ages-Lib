@@ -2,6 +2,8 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace IdleOfTheAgesLib.Translation {
     /// <summary>
     /// Allows for translation of text.
@@ -11,6 +13,11 @@ namespace IdleOfTheAgesLib.Translation {
         /// Gets the currently selected language.
         /// </summary>
         public Language CurrentLanguage { get; }
+
+        /// <summary>
+        /// An event that gets fired when the language is changed.
+        /// </summary>
+        event Action<Language> LanguageChangedEvent;
 
         /// <summary>
         /// Changes the language of the game.

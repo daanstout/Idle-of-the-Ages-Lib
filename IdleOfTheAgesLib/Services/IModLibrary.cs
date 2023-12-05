@@ -2,6 +2,8 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+
 namespace IdleOfTheAgesLib
 {
     /// <summary>
@@ -29,5 +31,11 @@ namespace IdleOfTheAgesLib
         /// <param name="namespace">The namespace of the mod to get the mod object for.</param>
         /// <returns>The requested mod object.</returns>
         Result<IModObject> GetModObject(string @namespace);
+
+        /// <summary>
+        /// Gets all the mods that are currently registered.
+        /// </summary>
+        /// <returns>An <see cref="IEnumerable{T}"/> with all the currently registered mods.</returns>
+        IEnumerable<IModObject> GetAllMods();
     }
 }
