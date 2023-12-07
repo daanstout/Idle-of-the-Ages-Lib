@@ -2,13 +2,15 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using IdleOfTheAgesLib.Models;
+
 namespace IdleOfTheAgesLib {
     /// <summary>
-    /// Allows for loading in <see cref="Models.ModJsonData.ModData"/> objects.
+    /// Allows for loading in <see cref="ModData"/> objects.
     /// </summary>
     public interface IDataLoader {
         /// <summary>
-        /// Loads in a <see cref="Models.ModJsonData.ModData"/> object from the mod folder.
+        /// Loads in a <see cref="ModData"/> object from the mod folder.
         /// </summary>
         /// <param name="pathSegments">The path to the json file.</param>
         /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>

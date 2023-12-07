@@ -8,6 +8,5 @@ namespace IdleOfTheAgesLib.UI.Models {
     /// <summary>
     /// Contains data to render a <see cref="IPageItemElement"/>.
     /// </summary>
-    public class PageItemModel {
-    }
+    public class PageItemModel { }
 }

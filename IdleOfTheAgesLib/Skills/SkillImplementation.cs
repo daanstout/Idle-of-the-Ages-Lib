@@ -5,6 +5,7 @@
 using IdleOfTheAgesLib.DependencyInjection;
 using IdleOfTheAgesLib.Models.ModJsonData;
 using IdleOfTheAgesLib.UI;
+using IdleOfTheAgesLib.UI.Elements;
 
 using System;
 

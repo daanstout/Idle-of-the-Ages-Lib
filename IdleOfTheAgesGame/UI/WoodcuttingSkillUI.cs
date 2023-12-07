@@ -3,7 +3,7 @@
 // </copyright>
 
 using IdleOfTheAgesLib.Translation;
-using IdleOfTheAgesLib.UI;
+using IdleOfTheAgesLib.UI.Elements;
 
 using UnityEngine.UIElements;
 

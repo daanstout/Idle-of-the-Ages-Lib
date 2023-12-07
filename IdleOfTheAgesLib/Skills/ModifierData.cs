@@ -2,11 +2,13 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
-namespace IdleOfTheAgesLib.Data {
+namespace IdleOfTheAgesLib.Skills
+{
     /// <summary>
     /// Data that modifies certain stats within the game.
     /// </summary>
-    public class ModifierData {
+    public class ModifierData
+    {
         /// <summary>
         /// Gets the source of the modification data.
         /// </summary>
@@ -32,7 +34,8 @@ namespace IdleOfTheAgesLib.Data {
         /// </summary>
         /// <param name="modifierSource">The source of the modification data.</param>
         /// <param name="modifierTarget">The target stat this modifier is affecting.</param>
-        public ModifierData(string modifierSource, string modifierTarget) {
+        public ModifierData(string modifierSource, string modifierTarget)
+        {
             ModifierSource = modifierSource;
             ModifierTarget = modifierTarget;
         }

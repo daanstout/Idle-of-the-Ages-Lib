@@ -2,16 +2,15 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
-using IdleOfTheAgesLib.UI;
-
 using System;
 
-namespace IdleOfTheAgesLib.Attributes {
+namespace IdleOfTheAgesLib.UI.Elements {
     /// <summary>
     /// Indicates that the class creates <see cref="Element"/>s.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class UIElementAttribute : Attribute {
+    public class UIElementAttribute : Attribute
+    {
         /// <summary>
         /// Gets the type of the interface this element implements.
         /// </summary>
@@ -27,7 +26,8 @@ namespace IdleOfTheAgesLib.Attributes {
         /// </summary>
         /// <param name="elementInterface">The type of the interface this element implements.</param>
         /// <param name="key">The key to identify this class implementation.</param>
-        public UIElementAttribute(Type elementInterface, string? key = null) {
+        public UIElementAttribute(Type elementInterface, string? key = null)
+        {
             ElementInterface = elementInterface;
             Key = key;
         }

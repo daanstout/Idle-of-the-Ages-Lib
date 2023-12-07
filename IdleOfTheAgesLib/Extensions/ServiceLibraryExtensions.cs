@@ -9,7 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace IdleOfTheAgesLib.Extensions.ServiceLibrary {
+namespace IdleOfTheAgesLib.Extensions.ServiceLibrary
+{
     /// <summary>
     /// Contains extensions for the <see cref="IServiceLibrary"/> interface.
     /// </summary>

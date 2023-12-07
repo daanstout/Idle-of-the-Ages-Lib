@@ -4,8 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace IdleOfTheAgesLib
-{
+namespace IdleOfTheAgesLib {
     /// <summary>
     /// Contains all mods that have been loaded.
     /// </summary>

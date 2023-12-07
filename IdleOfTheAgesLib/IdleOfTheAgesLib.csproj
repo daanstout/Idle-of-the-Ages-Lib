@@ -64,10 +64,6 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\ServiceModels\" />
-  </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesLib.dll&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.xml" />
   </Target>

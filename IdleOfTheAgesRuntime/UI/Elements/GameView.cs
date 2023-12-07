@@ -2,8 +2,6 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
-using IdleOfTheAgesLib.Attributes;
-using IdleOfTheAgesLib.UI;
 using IdleOfTheAgesLib.UI.Elements;
 using IdleOfTheAgesLib.UI.Models;
 

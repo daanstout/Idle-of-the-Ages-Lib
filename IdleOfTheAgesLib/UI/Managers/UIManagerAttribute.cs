@@ -2,16 +2,17 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
-using IdleOfTheAgesLib.UI;
+using IdleOfTheAgesLib.UI.Elements;
 
 using System;
 
-namespace IdleOfTheAgesLib {
+namespace IdleOfTheAgesLib.UI.Managers {
     /// <summary>
     /// Indicates that a class is an UI <see cref="Element"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class UIManagerAttribute : Attribute {
+    public class UIManagerAttribute : Attribute
+    {
         /// <summary>
         /// Gets the type of the element this manager manages.
         /// </summary>
@@ -27,7 +28,8 @@ namespace IdleOfTheAgesLib {
         /// </summary>
         /// <param name="managerInterfaceType">The type of the manager interface this manager implements.</param>
         /// <param name="identifier">The identifier of the attribute.</param>
-        public UIManagerAttribute(Type managerInterfaceType, string? identifier = null) {
+        public UIManagerAttribute(Type managerInterfaceType, string? identifier = null)
+        {
             ManagerInterfaceType = managerInterfaceType;
             Identifier = identifier;
         }

@@ -2,11 +2,13 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using IdleOfTheAgesLib.Models.ModJsonData;
+
 using Newtonsoft.Json;
 
 using System;
 
-namespace IdleOfTheAgesLib.Models.ModJsonData {
+namespace IdleOfTheAgesLib.Models {
     /// <summary>
     /// The data class is used for defining mod gameplay data.
     /// </summary>

@@ -2,13 +2,17 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using IdleOfTheAgesLib.UI.Elements;
+using IdleOfTheAgesLib.UI.Managers;
+
 using System;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A library that registers UI Elements so they can be used by <see cref="IUIManager"/>s.
     /// </summary>
-    public interface IElementLibrary {
+    public interface IElementLibrary
+    {
         /// <summary>
         /// Registers an element to the library.
         /// </summary>

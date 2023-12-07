@@ -8,6 +8,5 @@ namespace IdleOfTheAgesLib.UI.Managers {
     /// <summary>
     /// Manages the <see cref="IPageGroupElement"/>.
     /// </summary>
-    public interface IPageGroupManager : IUIManager<IPageGroupElement> {
-    }
+    public interface IPageGroupManager : IUIManager<IPageGroupElement> { }
 }

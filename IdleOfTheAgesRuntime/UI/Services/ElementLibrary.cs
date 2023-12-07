@@ -4,6 +4,8 @@
 
 using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.UI;
+using IdleOfTheAgesLib.UI.Elements;
+using IdleOfTheAgesLib.UI.Managers;
 
 using System;
 using System.Collections.Generic;
@@ -13,13 +15,16 @@ namespace IdleOfTheAgesRuntime.UI {
     /// A library that registers UI Elements so they can be used by <see cref="IUIManager"/>s.
     /// </summary>
     [Service(typeof(IElementLibrary), serviceLevel: ServiceAttribute.ServiceLevelEnum.Public)]
-    public class ElementLibrary : IElementLibrary {
-        private struct ElementKey : IEquatable<ElementKey> {
+    public class ElementLibrary : IElementLibrary
+    {
+        private struct ElementKey : IEquatable<ElementKey>
+        {
             public Type Type { get; set; }
 
             public string? Key { get; set; }
 
-            public ElementKey(Type type, string? key) {
+            public ElementKey(Type type, string? key)
+            {
                 Type = type;
                 Key = key;
             }
@@ -45,8 +50,10 @@ namespace IdleOfTheAgesRuntime.UI {
         public Result<TElement> GetElement<TElement>(string? key = null) where TElement : IElement => new Result<TElement>((TElement)GetElement(typeof(TElement), key).Value);
 
         /// <inheritdoc/>
-        public Result<IElement> GetElement(Type interfaceType, string? key = null) {
-            if (elementDictionary.TryGetValue((interfaceType, key), out var type)) {
+        public Result<IElement> GetElement(Type interfaceType, string? key = null)
+        {
+            if (elementDictionary.TryGetValue((interfaceType, key), out var type))
+            {
                 var element = (IElement)Activator.CreateInstance(type);
                 return new Result<IElement>(element);
             }
@@ -60,12 +67,15 @@ namespace IdleOfTheAgesRuntime.UI {
             where TElement : Element => RegisterElement(typeof(TInterface), typeof(TElement), null);
 
         /// <inheritdoc/>
-        public Result RegisterElement(Type interfaceType, Type elementType, string? key = null) {
-            if (!interfaceType.IsInterface) {
+        public Result RegisterElement(Type interfaceType, Type elementType, string? key = null)
+        {
+            if (!interfaceType.IsInterface)
+            {
                 return (false, $"Type {interfaceType.FullName} is not an interface!", new ArgumentException(null, nameof(interfaceType)));
             }
 
-            if (elementType.IsInterface || elementType.IsAbstract) {
+            if (elementType.IsInterface || elementType.IsAbstract)
+            {
                 return (false, $"Type {elementType.FullName} is an interface or an abstract class", new ArgumentException(null, nameof(elementType)));
             }
 

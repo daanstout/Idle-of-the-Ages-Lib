@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace IdleOfTheAgesLib.UI {
+namespace IdleOfTheAgesLib.UI.Elements {
     /// <summary>
     /// Base class for building a visual element container.
     /// </summary>

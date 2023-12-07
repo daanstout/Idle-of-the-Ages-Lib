@@ -41,7 +41,11 @@ namespace IdleOfTheAgesRuntime.Skills {
 
         /// <inheritdoc/>
         public Result RegisterSkillImplementation(Type skillType, string skillID) {
-            var skill = (SkillImplementation)Activator.CreateInstance(skillType, skillDatas[skillID]);
+            if (!skillDatas.TryGetValue(skillID, out var skillData)) {
+                return (false, $"No skill data has been registered for skill {skillID}", new ArgumentException(null, nameof(skillID)));
+            }
+
+            var skill = (SkillImplementation)Activator.CreateInstance(skillType, skillData);
 
             skill.Initialize(modLibrary.GetModObject(skill.Namespace).Value.ServiceLibrary);
 

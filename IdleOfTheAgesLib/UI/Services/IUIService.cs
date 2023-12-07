@@ -2,8 +2,9 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
-namespace IdleOfTheAgesLib.UI
-{
+using IdleOfTheAgesLib.UI.Elements;
+
+namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A service to interact with the UI elements that exist.
     /// </summary>

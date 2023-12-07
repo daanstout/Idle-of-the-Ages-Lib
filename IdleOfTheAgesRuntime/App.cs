@@ -3,11 +3,12 @@
 // </copyright>
 
 using IdleOfTheAgesLib;
-using IdleOfTheAgesLib.Attributes;
 using IdleOfTheAgesLib.Data;
 using IdleOfTheAgesLib.DependencyInjection;
 using IdleOfTheAgesLib.Skills;
 using IdleOfTheAgesLib.UI;
+using IdleOfTheAgesLib.UI.Elements;
+using IdleOfTheAgesLib.UI.Managers;
 
 using IdleOfTheAgesRuntime.Data;
 using IdleOfTheAgesRuntime.DependencyInjection;

@@ -2,11 +2,15 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
-namespace IdleOfTheAgesLib.UI {
+using IdleOfTheAgesLib.UI.Elements;
+
+namespace IdleOfTheAgesLib.UI.Managers
+{
     /// <summary>
     /// A UI Factory that creates and manages.
     /// </summary>
-    public interface IUIManager {
+    public interface IUIManager
+    {
         /// <summary>
         /// Gets the UI Element this manager is managing.
         /// </summary>
@@ -18,7 +22,8 @@ namespace IdleOfTheAgesLib.UI {
     /// A UI Factory that creates and manages.
     /// </summary>
     /// <typeparam name="TElement">The type of the element the manager is managing.</typeparam>
-    public interface IUIManager<TElement> : IUIManager where TElement : IElement {
+    public interface IUIManager<TElement> : IUIManager where TElement : IElement
+    {
         /// <summary>
         /// Gets the UI Element this manager is managing.
         /// </summary>

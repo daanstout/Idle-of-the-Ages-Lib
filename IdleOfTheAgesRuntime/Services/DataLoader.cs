@@ -3,7 +3,7 @@
 // </copyright>
 
 using IdleOfTheAgesLib;
-using IdleOfTheAgesLib.Models.ModJsonData;
+using IdleOfTheAgesLib.Models;
 using IdleOfTheAgesLib.Skills;
 using IdleOfTheAgesLib.Translation;
 using IdleOfTheAgesLib.UI;

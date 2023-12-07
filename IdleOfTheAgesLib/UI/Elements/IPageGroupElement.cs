@@ -8,6 +8,5 @@ namespace IdleOfTheAgesLib.UI.Elements {
     /// <summary>
     /// An element that renders a group of <see cref="IPageItemElement"/>s.
     /// </summary>
-    public interface IPageGroupElement : IElement<PageGroupModel> {
-    }
+    public interface IPageGroupElement : IElement<PageGroupModel> { }
 }

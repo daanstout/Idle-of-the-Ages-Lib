@@ -6,7 +6,7 @@ using IdleOfTheAgesLib.Models.ModJsonData;
 
 using System.Collections.Generic;
 
-namespace IdleOfTheAgesLib.Services {
+namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A service to keep track of the <see cref="PageGroupData"/>s and <see cref="PageData"/>s in the sidebar.
     /// </summary>

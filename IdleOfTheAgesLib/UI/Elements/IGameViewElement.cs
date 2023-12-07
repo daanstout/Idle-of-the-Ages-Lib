@@ -4,8 +4,7 @@
 
 using IdleOfTheAgesLib.UI.Models;
 
-namespace IdleOfTheAgesLib.UI.Elements
-{
+namespace IdleOfTheAgesLib.UI.Elements {
     /// <summary>
     /// The element for the main game view.
     /// </summary>

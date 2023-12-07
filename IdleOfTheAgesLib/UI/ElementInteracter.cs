@@ -2,6 +2,8 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using IdleOfTheAgesLib.UI.Elements;
+
 using UnityEngine;
 using UnityEngine.UIElements;
 

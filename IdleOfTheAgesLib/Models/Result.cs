@@ -3,7 +3,6 @@
 // </copyright>
 
 using System;
-using System.Data.SqlTypes;
 
 namespace IdleOfTheAgesLib {
     /// <summary>

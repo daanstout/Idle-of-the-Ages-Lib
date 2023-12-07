@@ -15,14 +15,18 @@ namespace IdleOfTheAgesRuntime.UI {
     /// A texture library where textures are loaded into.
     /// </summary>
     [Service(typeof(ITextureLibrary), serviceLevel: ServiceAttribute.ServiceLevelEnum.Public)]
-    public class TextureLibrary : ITextureLibrary {
+    public class TextureLibrary : ITextureLibrary
+    {
         private readonly Dictionary<string, string> registeredTextures = new Dictionary<string, string>();
         private readonly Dictionary<string, Texture2D> loadedTextures = new Dictionary<string, Texture2D>();
 
         /// <inheritdoc/>
-        public Result<Texture2D?> GetTexture(string textureID) {
-            if (!loadedTextures.TryGetValue(textureID, out var result)) {
-                if (!registeredTextures.TryGetValue(textureID, out var path)) {
+        public Result<Texture2D?> GetTexture(string textureID)
+        {
+            if (!loadedTextures.TryGetValue(textureID, out var result))
+            {
+                if (!registeredTextures.TryGetValue(textureID, out var path))
+                {
                     return (null, $"No texture with ID {textureID} has been registered!");
                 }
 
@@ -34,7 +38,8 @@ namespace IdleOfTheAgesRuntime.UI {
         }
 
         /// <inheritdoc/>
-        public Result RegisterTextures(string textureID, string path) {
+        public Result RegisterTextures(string textureID, string path)
+        {
             if (registeredTextures.ContainsKey(textureID))
                 return (false, $"Texture with ID {textureID} has already been registered!");
 
@@ -43,7 +48,8 @@ namespace IdleOfTheAgesRuntime.UI {
             return true;
         }
 
-        private static Texture2D LoadTexture(string path) {
+        private static Texture2D LoadTexture(string path)
+        {
             Texture2D texture = new Texture2D(2, 2);
             var imageBytes = File.ReadAllBytes(path);
             texture.LoadImage(imageBytes);
