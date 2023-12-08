@@ -4,6 +4,7 @@
 
 using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.Models;
+using IdleOfTheAgesLib.Models.ModJsonData;
 using IdleOfTheAgesLib.Skills;
 using IdleOfTheAgesLib.Translation;
 using IdleOfTheAgesLib.UI;
@@ -32,6 +33,7 @@ namespace IdleOfTheAgesRuntime {
         private readonly ISkillService skillService;
         private readonly ITextureLibrary textureLibrary;
         private readonly ITranslationService translationService;
+        private readonly IPageGroupService pageGroupService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataLoader"/> class.
@@ -41,12 +43,14 @@ namespace IdleOfTheAgesRuntime {
         /// <param name="skillService">The skill service to load skills into.</param>
         /// <param name="textureLibrary">The texture library to load textures into.</param>
         /// <param name="translationService">The translation service to load translation files into.</param>
-        public DataLoader(IModObject modObject, IAgeService ageService, ISkillService skillService, ITextureLibrary textureLibrary, ITranslationService translationService) {
+        /// <param name="pageGroupService">THe page group service to load page info into.</param>
+        public DataLoader(IModObject modObject, IAgeService ageService, ISkillService skillService, ITextureLibrary textureLibrary, ITranslationService translationService, IPageGroupService pageGroupService) {
             this.modObject = modObject;
             this.ageService = ageService;
             this.skillService = skillService;
             this.textureLibrary = textureLibrary;
             this.translationService = translationService;
+            this.pageGroupService = pageGroupService;
         }
 
         /// <inheritdoc/>
@@ -66,15 +70,10 @@ namespace IdleOfTheAgesRuntime {
                 return (false, $"Error parsing the json for file at path: {path}", e);
             }
 
-            foreach (var age in data.Ages) {
-                age.Namespace = data.Namespace;
-                ageService.RegisterAge(age);
-            }
-
-            foreach (var skill in data.Skills) {
-                skill.Namespace = data.Namespace;
-                skillService.RegisterSkillData(skill);
-            }
+            ProcessData(data, data.PageGroups, pageGroup => pageGroupService.RegisterPageGroup(pageGroup));
+            ProcessData(data, data.Pages, page => pageGroupService.RegisterPage(page));
+            ProcessData(data, data.Ages, age => ageService.RegisterAge(age));
+            ProcessData(data, data.Skills, skill => skillService.RegisterSkillData(skill));
 
             return true;
         }
@@ -134,6 +133,13 @@ namespace IdleOfTheAgesRuntime {
             }
 
             return true;
+        }
+
+        private static void ProcessData<T>(ModData data, IEnumerable<T> elements, Action<T> processFunc) where T : BaseDataElement {
+            foreach (var item in elements) {
+                item.Namespace = data.Namespace;
+                processFunc(item);
+            }
         }
     }
 }

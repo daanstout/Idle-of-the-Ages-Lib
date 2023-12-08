@@ -12,14 +12,14 @@ namespace IdleOfTheAgesLib.UI.Models {
     /// </summary>
     public class PageListModel {
         /// <summary>
-        /// Gets the <see cref="IPageItemElement"/>s to display.
+        /// Gets the <see cref="IPageGroupElement"/>s to display.
         /// </summary>
-        public IReadOnlyCollection<IPageItemElement> Pages { get; }
+        public IReadOnlyList<IPageGroupElement> PageGroups { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageListModel"/> class.
         /// </summary>
-        /// <param name="pages">The <see cref="IPageItemElement"/>s to display.</param>
-        public PageListModel(IReadOnlyCollection<IPageItemElement> pages) => Pages = pages;
+        /// <param name="pageGroups">The <see cref="IPageGroupElement"/>s to display.</param>
+        public PageListModel(IReadOnlyList<IPageGroupElement> pageGroups) => PageGroups = pageGroups;
     }
 }

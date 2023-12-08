@@ -16,20 +16,16 @@ namespace IdleOfTheAgesRuntime.UI.Elements {
         private readonly TwoPaneSplitView splitView = new TwoPaneSplitView(0, 200, TwoPaneSplitViewOrientation.Horizontal);
 
         /// <inheritdoc/>
-        protected override Box RebuildInternal() {
-            var target = base.RebuildInternal();
-
-            target.StretchToParentSize();
+        protected override void BuildElement(Box targetElement) {
+            targetElement.StretchToParentSize();
 
             splitView.Clear();
             splitView.Add(Data.SidebarElement.GetVisualElement());
             splitView.Add(new Box());
 
-            target.Add(splitView);
+            targetElement.Add(splitView);
 
             splitView.StretchToParentSize();
-
-            return target;
         }
     }
 }

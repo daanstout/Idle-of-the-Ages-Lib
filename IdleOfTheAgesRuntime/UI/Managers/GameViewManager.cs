@@ -31,7 +31,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
         public IGameViewElement GetElement() {
             gameView ??= elementLibrary.GetElement<IGameViewElement>().Value;
 
-            gameView.Initialize(new GameViewModel(uiManagerService.GetManager<IPageListManager>("Sidebar").Value.GetElement()));
+            gameView.InjectData(new GameViewModel(uiManagerService.GetManager<IPageListManager>("Sidebar").Value.GetElement()));
 
             return gameView;
         }

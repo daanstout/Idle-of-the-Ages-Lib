@@ -23,12 +23,8 @@ namespace IdleOfTheAgesGame.UI {
         }
 
         /// <inheritdoc/>
-        protected override Box RebuildInternal() {
-            var target = base.RebuildInternal();
-
-            target.Add(new Label(translationService.GetLanguageString(Constants.Skill.MINING.TranslationKey)));
-
-            return target;
+        protected override void BuildElement(Box targetElement) {
+            targetElement.Add(new Label(translationService.GetLanguageString(Constants.Skill.MINING.TranslationKey)));
         }
     }
 }

@@ -15,6 +15,11 @@ namespace IdleOfTheAgesLib.UI.Elements {
         /// </summary>
         /// <returns>Returns its <see cref="VisualElement"/> to show.</returns>
         VisualElement GetVisualElement();
+
+        /// <summary>
+        /// Rebuilds the visual element.
+        /// </summary>
+        void RebuildVisualElement();
     }
 
     /// <summary>
@@ -23,9 +28,9 @@ namespace IdleOfTheAgesLib.UI.Elements {
     /// <typeparam name="TDataModel">The type of the data model.</typeparam>
     public interface IElement<TDataModel> : IElement {
         /// <summary>
-        /// Initializes the element.
+        /// Injects the element with its data model.
         /// </summary>
-        /// <param name="data">The data the model needs to initialize itself.</param>
-        void Initialize(TDataModel data);
+        /// <param name="data">The data the model needs to build itself.</param>
+        void InjectData(TDataModel data);
     }
 }

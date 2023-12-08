@@ -37,17 +37,7 @@ namespace IdleOfTheAgesLib.UI.Elements {
             childElements.Insert(index, element);
         }
 
-        /// <summary>
-        /// Initializes the element.
-        /// </summary>
-        [Obsolete("Initialization happens with Initialize method that requires a data model to be passed into.")]
-        public virtual void Initialize() { }
-
-        /// <summary>
-        /// Rebuilds the element and its child elements.
-        /// <para>This function breaks down and rebuilds from the ground up when called.</para>
-        /// </summary>
-        /// <returns>Returns its <see cref="VisualElement"/> to show.</returns>
+        /// <inheritdoc/>
         public abstract VisualElement GetVisualElement();
 
         /// <summary>
@@ -55,6 +45,9 @@ namespace IdleOfTheAgesLib.UI.Elements {
         /// </summary>
         /// <param name="manipulator">The <see cref="IManipulator"/> to apply.</param>
         public abstract void ApplyManipulator(IManipulator manipulator);
+
+        /// <inheritdoc/>
+        public abstract void RebuildVisualElement();
     }
 
     /// <summary>
@@ -83,14 +76,8 @@ namespace IdleOfTheAgesLib.UI.Elements {
             data = default!;
         }
 
-        /// <summary>
-        /// Should not be used. Throws an exception. Instead, call <see cref="Initialize(TDataModel)"/>.
-        /// </summary>
-        [Obsolete("Use initialize(TDataModel)")]
-        public override void Initialize() => throw new NotImplementedException();
-
         /// <inheritdoc/>
-        public void Initialize(TDataModel data) {
+        public void InjectData(TDataModel data) {
             this.data = data;
             dirty = true;
         }
@@ -99,7 +86,10 @@ namespace IdleOfTheAgesLib.UI.Elements {
         public sealed override VisualElement GetVisualElement() {
             if (dirty) {
                 dirty = false;
-                return RebuildInternal();
+
+                RebuildVisualElement();
+
+                return targetElement;
             } else {
                 return targetElement;
             }
@@ -108,6 +98,13 @@ namespace IdleOfTheAgesLib.UI.Elements {
         /// <inheritdoc/>
         public sealed override void ApplyManipulator(IManipulator manipulator) {
             targetElement.AddManipulator(manipulator);
+        }
+
+        /// <inheritdoc/>
+        public sealed override void RebuildVisualElement() {
+            targetElement.Clear();
+
+            BuildElement(targetElement);
         }
 
         /// <summary>
@@ -121,12 +118,8 @@ namespace IdleOfTheAgesLib.UI.Elements {
         /// <summary>
         /// Internal rebuild function that returns the target visual element generically.
         /// </summary>
-        /// <returns>The target element.</returns>
-        protected virtual TElement RebuildInternal() {
-            targetElement.Clear();
-
-            return targetElement;
-        }
+        /// <param name="targetElement">The <see cref="VisualElement"/> we are building.</param>
+        protected virtual void BuildElement(TElement targetElement) { }
 
         /// <summary>
         /// Registers a callback to the target element.

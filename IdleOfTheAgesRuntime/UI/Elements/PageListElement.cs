@@ -13,5 +13,11 @@ namespace IdleOfTheAgesRuntime.UI.Elements {
     /// </summary>
     [UIElement(typeof(IPageListElement))]
     public class PageListElement : Element<Box, PageListModel>, IPageListElement {
+        /// <inheritdoc/>
+        protected override void BuildElement(Box targetElement) {
+            foreach (var pageGroup in Data.PageGroups) {
+                targetElement.Add(pageGroup.GetVisualElement());
+            }
+        }
     }
 }
