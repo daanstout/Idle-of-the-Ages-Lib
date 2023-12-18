@@ -41,5 +41,37 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public string PageGroup { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageData"/> class.
+        /// </summary>
+        public PageData() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageData"/> class.
+        /// </summary>
+        /// <param name="namespace">The namespace of the element.</param>
+        /// <param name="id">The ID of the element.</param>
+        /// <param name="name">The name of the element.</param>
+        /// <param name="translationKey">The translation key of the element.</param>
+        /// <param name="sortingOrder">The sorting order of the element.</param>
+        /// <param name="thumbnail">The thumbnail for the element.</param>
+        /// <param name="pageType">The type of page this is.</param>
+        /// <param name="targetID">The ID of the target behind the page.</param>
+        /// <param name="pageGroup">The Id of the page group this page belongs to.</param>
+        public PageData(
+            string @namespace,
+            string id,
+            string name,
+            string translationKey,
+            SortingOrderData sortingOrder,
+            string thumbnail,
+            PageTypeValues pageType,
+            string targetID,
+            string pageGroup) : base(@namespace, id, name, translationKey, sortingOrder, thumbnail) {
+            PageType = pageType;
+            TargetID = targetID;
+            PageGroup = pageGroup;
+        }
     }
 }

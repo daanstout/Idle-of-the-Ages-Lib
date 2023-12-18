@@ -22,6 +22,7 @@ namespace IdleOfTheAgesLib {
         /// Implicitly casts a <see cref="Result"/> object to a <see cref="bool"/>.
         /// </summary>
         /// <param name="result">The result object to cast.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the <paramref name="result"/> object is <see langword="null"/>.</exception>
         public static implicit operator bool(Result result) {
             if (result == null) {
                 throw new InvalidOperationException("Result is null. Always return an instance of the Result class and pass `false` as the value!");
@@ -88,6 +89,7 @@ namespace IdleOfTheAgesLib {
         /// <summary>
         /// Throws an exception if the <see cref="Result{T}"/> object is in an invalid state.
         /// </summary>
+        /// <exception cref="System.Exception">Thrown if the object is not in a valid state and no exception was provided.</exception>
         public void ThrowIfInvalid() {
             if (!this) {
                 throw Exception ?? new Exception("Undefined error occured!");
@@ -99,6 +101,7 @@ namespace IdleOfTheAgesLib {
         /// <para>This returns <see langword="true"/> if the call was successful, and <see langword="false"/> if something went wrong.</para>
         /// </summary>
         /// <param name="result">The result object to cast.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the <paramref name="result"/> object is <see langword="null"/>.</exception>
         public static implicit operator bool(Result<T> result) {
             if (result == null) {
                 throw new InvalidOperationException("Result is null. Always return an instance of the Result class and pass `null` as the value!");
@@ -111,6 +114,8 @@ namespace IdleOfTheAgesLib {
         /// Implicitly casts a <see cref="Result{T}"/> object to a <typeparamref name="T"/>.
         /// </summary>
         /// <param name="result">The result object to cast.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the <paramref name="result"/> object is <see langword="null"/>.</exception>
+        /// <exception cref="Exception">Thrown if the <see cref="Exception"/> is not <see langword="null"/>.</exception>
         public static implicit operator T(Result<T> result) {
             if (result == null) {
                 throw new InvalidOperationException("Result is null. Always return an instance of the Result class and pass `null` as the value!");

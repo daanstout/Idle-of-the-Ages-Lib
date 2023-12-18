@@ -9,15 +9,21 @@ using IdleOfTheAgesLib.UI.Elements;
 using IdleOfTheAgesLib.UI.Managers;
 using IdleOfTheAgesLib.UI.Models;
 
+using System;
+
 namespace IdleOfTheAgesRuntime.UI.Managers {
     /// <summary>
     /// Manages the <see cref="IPageItemElement"/>.
     /// </summary>
     [UIManager(typeof(IPageItemManager))]
     public class PageItemManager : IPageItemManager {
+        /// <inheritdoc/>
+        public event Action<PageData> PageItemClickedEvent = null!;
+
         private readonly IElementLibrary elementLibrary;
         private readonly ITranslationService translationService;
         private readonly ITextureLibrary textureLibrary;
+
         private IPageItemElement pageItemElement = null!;
         private PageData pageData = null!;
 
@@ -41,7 +47,10 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
 
         /// <inheritdoc/>
         public IPageItemElement GetElement() {
-            pageItemElement ??= elementLibrary.GetElement<IPageItemElement>().Value;
+            if (pageItemElement == null) {
+                pageItemElement = elementLibrary.GetElement<IPageItemElement>().Value;
+                pageItemElement.PageItemClickedEvent += OnPageItemClicked;
+            }
 
             var model = new PageItemModel(translationService.GetLanguageString(pageData.TranslationKey), textureLibrary.GetTexture(pageData.Thumbnail!) !);
 
@@ -49,5 +58,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
 
             return pageItemElement;
         }
+
+        private void OnPageItemClicked() => PageItemClickedEvent?.Invoke(pageData);
     }
 }

@@ -33,6 +33,14 @@ namespace IdleOfTheAgesRuntime {
 
         /// <inheritdoc/>
         public Result RegisterMod(string @namespace, IModObject modObject) {
+            if (string.IsNullOrWhiteSpace(@namespace)) {
+                return (false, "Namespace is empty!", new ArgumentNullException(nameof(@namespace)));
+            }
+
+            if (loadedMods.ContainsKey(@namespace)) {
+                return (false, "There is already a mod loaded with that namespace!", new ArgumentException(null, nameof(@namespace)));
+            }
+
             loadedMods.Add(@namespace, modObject);
             return true;
         }

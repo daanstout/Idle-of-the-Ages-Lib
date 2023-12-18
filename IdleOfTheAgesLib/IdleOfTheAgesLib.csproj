@@ -65,7 +65,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesLib.dll&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.xml" />
+    <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesLib.dll&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.xml&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesLib.pdb" />
   </Target>
 
 </Project>

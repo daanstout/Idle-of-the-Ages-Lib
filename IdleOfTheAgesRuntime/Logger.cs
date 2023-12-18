@@ -31,7 +31,7 @@ namespace IdleOfTheAgesRuntime {
         }
 
         /// <inheritdoc/>
-        public void Warn(string message, params object[] objects) {
+        public void Warning(string message, params object[] objects) {
             Debug.LogWarningFormat("[{0}] {1}", Namespace, string.Format(message, objects));
         }
     }

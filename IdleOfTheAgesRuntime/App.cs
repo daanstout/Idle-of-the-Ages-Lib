@@ -22,6 +22,8 @@ using System.Reflection;
 
 using UnityEngine;
 
+using ILogger = IdleOfTheAgesLib.ILogger;
+
 namespace IdleOfTheAgesRuntime {
     /// <summary>
     /// The entry point of the runtime.
@@ -44,6 +46,7 @@ namespace IdleOfTheAgesRuntime {
             publicServiceLibrary = new ServiceLibrary(mainServiceLibrary);
             mainUIManagerService = new UIManagerService(null, mainServiceLibrary);
             mainServiceLibrary.Bind<IUIManagerService>().ToInstance(mainUIManagerService);
+            mainServiceLibrary.Bind<ILogger>().ToInstance(new Logger("SYSTEM"));
         }
 
         /// <summary>

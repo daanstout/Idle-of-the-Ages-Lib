@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdleOfTheAgesGame", "IdleOf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdleOfTheAgesRuntime", "IdleOfTheAgesRuntime\IdleOfTheAgesRuntime.csproj", "{EDA9947F-F9A2-4451-967C-33D9AAC2354D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdleOfTheAgesTests", "IdleOfTheAgesTests\IdleOfTheAgesTests.csproj", "{20B30F1F-C492-4927-9DD3-8397F98812AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdleOfTheAgesTests", "IdleOfTheAgesTests\IdleOfTheAgesTests.csproj", "{20B30F1F-C492-4927-9DD3-8397F98812AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +26,7 @@ Global
 		{92751B8E-A2E8-4F60-A94A-3410B76BCCDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92751B8E-A2E8-4F60-A94A-3410B76BCCDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92751B8E-A2E8-4F60-A94A-3410B76BCCDC}.Release|x64.ActiveCfg = Release|Any CPU
+		{92751B8E-A2E8-4F60-A94A-3410B76BCCDC}.Release|x64.Build.0 = Release|Any CPU
 		{42B4F9B3-6818-41B8-926D-538E72A4F05F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42B4F9B3-6818-41B8-926D-538E72A4F05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B4F9B3-6818-41B8-926D-538E72A4F05F}.Debug|x64.ActiveCfg = Debug|Any CPU

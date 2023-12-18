@@ -46,6 +46,14 @@ namespace IdleOfTheAgesLib.Skills {
         Result RegisterSkillImplementation(Type skillType, string skillID);
 
         /// <summary>
+        /// Gets a skill implementation.
+        /// </summary>
+        /// <typeparam name="TSkill">The type of the skill to get.</typeparam>
+        /// <param name="skillID">The ID of the skill to get.</param>
+        /// <returns>The requested skill.</returns>
+        Result<TSkill> GetSkill<TSkill>(string skillID) where TSkill : SkillImplementation;
+
+        /// <summary>
         /// Gets all skills currently registered in the game.
         /// </summary>
         /// <returns>The skills currently registered in the game.</returns>

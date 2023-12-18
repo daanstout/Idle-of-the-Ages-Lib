@@ -5,6 +5,8 @@
 using IdleOfTheAgesLib.UI.Elements;
 using IdleOfTheAgesLib.UI.Models;
 
+using System;
+
 using UnityEngine.UIElements;
 
 namespace IdleOfTheAgesRuntime.UI.Elements {
@@ -13,6 +15,9 @@ namespace IdleOfTheAgesRuntime.UI.Elements {
     /// </summary>
     [UIElement(typeof(IPageItemElement))]
     public class PageItemElement : Element<Box, PageItemModel>, IPageItemElement {
+        /// <inheritdoc/>
+        public event Action PageItemClickedEvent = null!;
+
         private readonly Image image;
         private readonly Label label;
 
@@ -22,6 +27,8 @@ namespace IdleOfTheAgesRuntime.UI.Elements {
         public PageItemElement() {
             image = new Image();
             label = new Label();
+
+            RegisterCallback<ClickEvent>(OnElementClicked);
         }
 
         /// <inheritdoc/>
@@ -31,6 +38,10 @@ namespace IdleOfTheAgesRuntime.UI.Elements {
 
             targetElement.Add(image);
             targetElement.Add(label);
+        }
+
+        private void OnElementClicked(ClickEvent args) {
+            PageItemClickedEvent?.Invoke();
         }
     }
 }

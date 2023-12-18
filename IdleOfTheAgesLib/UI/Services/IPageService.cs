@@ -1,16 +1,27 @@
-﻿// <copyright file="IPageGroupService.cs" company="DaanStout">
+﻿// <copyright file="IPageService.cs" company="DaanStout">
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
 using IdleOfTheAgesLib.Models.ModJsonData;
 
+using System;
 using System.Collections.Generic;
 
 namespace IdleOfTheAgesLib.UI {
     /// <summary>
     /// A service to keep track of the <see cref="PageGroupData"/>s and <see cref="PageData"/>s in the sidebar.
     /// </summary>
-    public interface IPageGroupService {
+    public interface IPageService {
+        /// <summary>
+        /// Gets the ID of the page that is currently active.
+        /// </summary>
+        string ActivePage { get; }
+
+        /// <summary>
+        /// An even that gets fired when the <see cref="ActivePage"/> is changed.
+        /// </summary>
+        event Action<string> OnPageChangedEvent;
+
         /// <summary>
         /// Registers a <see cref="PageGroupData"/>.
         /// </summary>
@@ -51,5 +62,12 @@ namespace IdleOfTheAgesLib.UI {
         /// <param name="pageID">The <see cref="PageData"/> to obtain.</param>
         /// <returns>The requested <see cref="PageData"/>.</returns>
         Result<PageData> GetPage(string pageID);
+
+        /// <summary>
+        /// Changes the active page that the user is viewing.
+        /// </summary>
+        /// <param name="pageId">The ID of the page that should become active.</param>
+        /// <returns>Whether or not changing the page was successful.</returns>
+        Result ChangeActivePage(string pageId);
     }
 }

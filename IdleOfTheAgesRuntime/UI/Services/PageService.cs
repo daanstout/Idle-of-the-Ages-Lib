@@ -1,4 +1,4 @@
-﻿// <copyright file="PageGroupService.cs" company="DaanStout">
+﻿// <copyright file="PageService.cs" company="DaanStout">
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
@@ -9,20 +9,50 @@ using IdleOfTheAgesLib.UI;
 using System;
 using System.Collections.Generic;
 
+using UnityEngine;
+
 namespace IdleOfTheAgesRuntime.UI {
     /// <summary>
     /// A service to keep track of the <see cref="PageGroupData"/>s and <see cref="PageData"/>s in the sidebar.
     /// </summary>
-    [Service(typeof(IPageGroupService), serviceLevel: ServiceAttribute.ServiceLevelEnum.Public)]
-    public class PageGroupService : IPageGroupService {
+    [Service(typeof(IPageService), serviceLevel: ServiceAttribute.ServiceLevelEnum.Public)]
+    public class PageService : IPageService {
         private class PageGroupInfo {
             public PageGroupData? PageGroup { get; set; }
 
             public Dictionary<string, PageData> Pages { get; } = new Dictionary<string, PageData>();
         }
 
+        /// <inheritdoc/>
+        public event Action<string> OnPageChangedEvent = null!;
+
+        /// <inheritdoc/>
+        public string ActivePage { get; set; } = string.Empty;
+
         private readonly Dictionary<string, PageGroupInfo> pageGroups = new Dictionary<string, PageGroupInfo>();
         private readonly Dictionary<string, string> pageToPageGroup = new Dictionary<string, string>();
+
+        /// <inheritdoc/>
+        public Result ChangeActivePage(string pageId) {
+            if (string.IsNullOrWhiteSpace(pageId)) {
+                return (false, "Page ID cannot be empty!", new ArgumentNullException(pageId));
+            }
+
+            if (!pageGroups.ContainsKey(pageId)) {
+                return (false, $"No page with ID {pageId} exists!", new ArgumentException($"No page with ID {pageId} exists!", nameof(pageId)));
+            }
+
+            if (ActivePage == pageId) {
+                return true;
+            }
+
+            Debug.Log($"Changing active page to: {pageId}");
+
+            ActivePage = pageId;
+            OnPageChangedEvent?.Invoke(pageId);
+
+            return true;
+        }
 
         /// <inheritdoc/>
         public IEnumerable<PageGroupData> GetAllPageGroups() {

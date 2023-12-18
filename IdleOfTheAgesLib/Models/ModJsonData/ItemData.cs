@@ -54,5 +54,49 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public string Tag { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemData"/> class.
+        /// </summary>
+        public ItemData() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemData"/> class.
+        /// </summary>
+        /// <param name="namespace">The namespace of the element.</param>
+        /// <param name="id">The ID of the element.</param>
+        /// <param name="name">The name of the element.</param>
+        /// <param name="translationKey">The translation key of the element.</param>
+        /// <param name="sortingOrder">The sorting order of the element.</param>
+        /// <param name="thumbnail">The thumbnail for the element.</param>
+        /// <param name="descriptionKey">The description key of the item.</param>
+        /// <param name="sellPrice">The sell price of the item.</param>
+        /// <param name="metadata">The metadata of the item.</param>
+        /// <param name="category">The category of the item.</param>
+        /// <param name="type">The type of the item.</param>
+        /// <param name="requiredForCompletion">Whether or not the item is required to consider the game "completed".</param>
+        /// <param name="tag">The tags of the item.</param>
+        public ItemData(
+            string @namespace,
+            string id,
+            string name,
+            string translationKey,
+            SortingOrderData sortingOrder,
+            string thumbnail,
+            string descriptionKey,
+            int sellPrice,
+            Dictionary<string, object> metadata,
+            string category,
+            string type,
+            bool requiredForCompletion,
+            string tag) : base(@namespace, id, name, translationKey, sortingOrder, thumbnail) {
+            DescriptionKey = descriptionKey;
+            SellPrice = sellPrice;
+            Metadata = metadata;
+            Category = category;
+            Type = type;
+            RequiredForCompletion = requiredForCompletion;
+            Tag = tag;
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
     [UIManager(typeof(IPageGroupManager))]
     public class PageGroupManager : IPageGroupManager {
         private readonly IElementLibrary elementLibrary;
-        private readonly IPageGroupService pageGroupService;
+        private readonly IPageService pageGroupService;
         private readonly IUIManagerService uiManagerService;
         private readonly Dictionary<string, IPageItemManager> pageItems = new Dictionary<string, IPageItemManager>();
         private IPageGroupElement pageGroupElement = null!;
@@ -30,7 +30,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
         /// <param name="elementLibrary">The element library to get elements from.</param>
         /// <param name="pageGroupService">The page group service to get page data from.</param>
         /// <param name="uiManagerService">The UI manager service to get other managers from.</param>
-        public PageGroupManager(IElementLibrary elementLibrary, IPageGroupService pageGroupService, IUIManagerService uiManagerService) {
+        public PageGroupManager(IElementLibrary elementLibrary, IPageService pageGroupService, IUIManagerService uiManagerService) {
             this.elementLibrary = elementLibrary;
             this.pageGroupService = pageGroupService;
             this.uiManagerService = uiManagerService;
@@ -53,6 +53,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
                     if (!pageItems.TryGetValue(page.NamespacedID, out var pageItemManager)) {
                         pageItemManager = uiManagerService.GetManager<IPageItemManager>(page.NamespacedID).Value;
                         pageItemManager.InjectPageData(page);
+                        pageItemManager.PageItemClickedEvent += OnPageItemClickedEvent;
                         pageItems[page.NamespacedID] = pageItemManager;
                     }
                 }
@@ -64,5 +65,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
 
             return pageGroupElement;
         }
+
+        private void OnPageItemClickedEvent(PageData pageData) => pageGroupService.ChangeActivePage(pageData.NamespacedID);
     }
 }

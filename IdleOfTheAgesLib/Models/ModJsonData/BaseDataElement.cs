@@ -30,6 +30,23 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// Gets the object's namespaced ID.
         /// </summary>
         public string NamespacedID => $"{Namespace}:{ID}";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseDataElement"/> class.
+        /// </summary>
+        protected BaseDataElement() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseDataElement"/> class.
+        /// </summary>
+        /// <param name="namespace">The namespace of the element.</param>
+        /// <param name="id">The ID of the element.</param>
+        /// <param name="name">The name of the element.</param>
+        protected BaseDataElement(string @namespace, string id, string name) {
+            Namespace = @namespace;
+            ID = id;
+            Name = name;
+        }
     }
 
     /// <summary>
@@ -47,6 +64,24 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public SortingOrderData SortingOrder { get; set; } = new SortingOrderData();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VisisbleDataElement"/> class.
+        /// </summary>
+        protected VisisbleDataElement() : base() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VisisbleDataElement"/> class.
+        /// </summary>
+        /// <param name="namespace">The namespace of the element.</param>
+        /// <param name="id">The ID of the element.</param>
+        /// <param name="name">The name of the element.</param>
+        /// <param name="translationKey">The translation key of the element.</param>
+        /// <param name="sortingOrder">The sorting order of the element.</param>
+        protected VisisbleDataElement(string @namespace, string id, string name, string translationKey, SortingOrderData sortingOrder) : base(@namespace, id, name) {
+            TranslationKey = translationKey;
+            SortingOrder = sortingOrder;
+        }
     }
 
     /// <summary>
@@ -58,5 +93,23 @@ namespace IdleOfTheAgesLib.Models.ModJsonData {
         /// </summary>
         [JsonProperty]
         public string? Thumbnail { get; private set; } = string.Empty;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThumbnailDataElement"/> class.
+        /// </summary>
+        protected ThumbnailDataElement() : base() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThumbnailDataElement"/> class.
+        /// </summary>
+        /// <param name="namespace">The namespace of the element.</param>
+        /// <param name="id">The ID of the element.</param>
+        /// <param name="name">The name of the element.</param>
+        /// <param name="translationKey">The translation key of the element.</param>
+        /// <param name="sortingOrder">The sorting order of the element.</param>
+        /// <param name="thumbnail">The thumbnail for the element.</param>
+        protected ThumbnailDataElement(string @namespace, string id, string name, string translationKey, SortingOrderData sortingOrder, string thumbnail) : base(@namespace, id, name, translationKey, sortingOrder) {
+            Thumbnail = thumbnail;
+        }
     }
 }

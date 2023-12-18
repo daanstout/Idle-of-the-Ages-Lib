@@ -24,7 +24,7 @@ namespace IdleOfTheAgesLib {
         /// </summary>
         /// <param name="message">The message to log.</param>
         /// <param name="objects">Parameters to add to the message.</param>
-        void Warn(string message, params object[] objects);
+        void Warning(string message, params object[] objects);
 
         /// <summary>
         /// Logs an error to the logger.

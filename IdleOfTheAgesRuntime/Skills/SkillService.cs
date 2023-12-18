@@ -59,6 +59,19 @@ namespace IdleOfTheAgesRuntime.Skills {
         }
 
         /// <inheritdoc/>
+        public Result<TSkill> GetSkill<TSkill>(string skillID) where TSkill : SkillImplementation {
+            if (string.IsNullOrWhiteSpace(skillID)) {
+                return (null!, "skillID cannot be empty!", new ArgumentNullException(nameof(skillID)));
+            }
+
+            if (!skills.TryGetValue(skillID, out var skill)) {
+                return (null!, $"No skill with skill ID: {skillID} has been registered!", new ArgumentException(null, nameof(skillID)));
+            }
+
+            return (TSkill)skill;
+        }
+
+        /// <inheritdoc/>
         public Result<IReadOnlyCollection<SkillImplementation>> GetSkills() {
             return skills.Values;
         }

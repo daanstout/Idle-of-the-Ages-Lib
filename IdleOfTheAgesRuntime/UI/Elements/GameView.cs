@@ -21,7 +21,7 @@ namespace IdleOfTheAgesRuntime.UI.Elements {
 
             splitView.Clear();
             splitView.Add(Data.SidebarElement.GetVisualElement());
-            splitView.Add(new Box());
+            splitView.Add(Data.PageElement.GetVisualElement());
 
             targetElement.Add(splitView);
 

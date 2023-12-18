@@ -2,6 +2,7 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using IdleOfTheAgesLib.Models.ModJsonData;
 using IdleOfTheAgesLib.UI;
 using IdleOfTheAgesLib.UI.Elements;
 using IdleOfTheAgesLib.UI.Managers;
@@ -17,7 +18,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
     [UIManager(typeof(IPageListManager))]
     public class PageListManager : IPageListManager {
         private readonly IElementLibrary elementLibrary;
-        private readonly IPageGroupService pageGroupService;
+        private readonly IPageService pageGroupService;
         private readonly IUIManagerService uiManagerService;
         private readonly Dictionary<string, IPageGroupManager> pageGroups = new Dictionary<string, IPageGroupManager>();
         private IPageListElement pageListElement = null!;
@@ -28,7 +29,7 @@ namespace IdleOfTheAgesRuntime.UI.Managers {
         /// <param name="elementLibrary">The element library to get elements from.</param>
         /// <param name="pageGroupService">The page group service to get page group data from.</param>
         /// <param name="uiManagerService">The UI Manager Service to get other managers from.</param>
-        public PageListManager(IElementLibrary elementLibrary, IPageGroupService pageGroupService, IUIManagerService uiManagerService) {
+        public PageListManager(IElementLibrary elementLibrary, IPageService pageGroupService, IUIManagerService uiManagerService) {
             this.elementLibrary = elementLibrary;
             this.pageGroupService = pageGroupService;
             this.uiManagerService = uiManagerService;

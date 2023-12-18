@@ -15,9 +15,18 @@ namespace IdleOfTheAgesLib.UI.Models {
         public IPageListElement SidebarElement { get; } = null!;
 
         /// <summary>
+        /// Gets the page to render to the user.
+        /// </summary>
+        public IElement PageElement { get; } = null!;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GameViewModel"/> class.
         /// </summary>
         /// <param name="sidebarElement">The page list to render in the sidebar.</param>
-        public GameViewModel(IPageListElement sidebarElement) => SidebarElement = sidebarElement;
+        /// <param name="pageElement">The page to render.</param>
+        public GameViewModel(IPageListElement sidebarElement, IElement pageElement) {
+            SidebarElement = sidebarElement;
+            PageElement = pageElement;
+        }
     }
 }

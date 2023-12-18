@@ -33,7 +33,7 @@ namespace IdleOfTheAgesRuntime {
         private readonly ISkillService skillService;
         private readonly ITextureLibrary textureLibrary;
         private readonly ITranslationService translationService;
-        private readonly IPageGroupService pageGroupService;
+        private readonly IPageService pageGroupService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataLoader"/> class.
@@ -44,7 +44,7 @@ namespace IdleOfTheAgesRuntime {
         /// <param name="textureLibrary">The texture library to load textures into.</param>
         /// <param name="translationService">The translation service to load translation files into.</param>
         /// <param name="pageGroupService">THe page group service to load page info into.</param>
-        public DataLoader(IModObject modObject, IAgeService ageService, ISkillService skillService, ITextureLibrary textureLibrary, ITranslationService translationService, IPageGroupService pageGroupService) {
+        public DataLoader(IModObject modObject, IAgeService ageService, ISkillService skillService, ITextureLibrary textureLibrary, ITranslationService translationService, IPageService pageGroupService) {
             this.modObject = modObject;
             this.ageService = ageService;
             this.skillService = skillService;

@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IdleOfTheAgesLib\IdleOfTheAgesLib.csproj" />
+    <ProjectReference Include="..\IdleOfTheAgesRuntime\IdleOfTheAgesRuntime.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,7 +86,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesGame.dll $(OutDir)Manifest.json $(OutDir)data.json $(OutDir)Assets\*" />
+    <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesGame.dll $(OutDir)IdleOfTheAgesGame.pdb $(OutDir)Manifest.json $(OutDir)data.json $(OutDir)Assets\*" />
   </Target>
 
 </Project>
