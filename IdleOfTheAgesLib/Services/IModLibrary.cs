@@ -4,37 +4,37 @@
 
 using System.Collections.Generic;
 
-namespace IdleOfTheAgesLib {
+namespace IdleOfTheAgesLib;
+
+/// <summary>
+/// Contains all mods that have been loaded.
+/// </summary>
+public interface IModLibrary {
     /// <summary>
-    /// Contains all mods that have been loaded.
+    /// Registers a mod to the mod library.
     /// </summary>
-    public interface IModLibrary {
-        /// <summary>
-        /// Registers a mod to the mod library.
-        /// </summary>
-        /// <param name="namespace">The namespace of the mod.</param>
-        /// <param name="modObject">The mod object.</param>
-        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
-        Result RegisterMod(string @namespace, IModObject modObject);
+    /// <param name="namespace">The namespace of the mod.</param>
+    /// <param name="modObject">The mod object.</param>
+    /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
+    Result RegisterMod(string @namespace, IModObject modObject);
 
-        /// <summary>
-        /// Checks whether a mod with the specified <paramref name="namespace"/> exists.
-        /// </summary>
-        /// <param name="namespace">The namespace to check for.</param>
-        /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
-        Result ModExists(string @namespace);
+    /// <summary>
+    /// Checks whether a mod with the specified <paramref name="namespace"/> exists.
+    /// </summary>
+    /// <param name="namespace">The namespace to check for.</param>
+    /// <returns>A <see cref="Result"/> object to check if the call was successful.</returns>
+    Result ModExists(string @namespace);
 
-        /// <summary>
-        /// Gets the mod object of a mod.
-        /// </summary>
-        /// <param name="namespace">The namespace of the mod to get the mod object for.</param>
-        /// <returns>The requested mod object.</returns>
-        Result<IModObject> GetModObject(string @namespace);
+    /// <summary>
+    /// Gets the mod object of a mod.
+    /// </summary>
+    /// <param name="namespace">The namespace of the mod to get the mod object for.</param>
+    /// <returns>The requested mod object.</returns>
+    Result<IModObject> GetModObject(string @namespace);
 
-        /// <summary>
-        /// Gets all the mods that are currently registered.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> with all the currently registered mods.</returns>
-        IEnumerable<IModObject> GetAllMods();
-    }
+    /// <summary>
+    /// Gets all the mods that are currently registered.
+    /// </summary>
+    /// <returns>An <see cref="IEnumerable{T}"/> with all the currently registered mods.</returns>
+    IEnumerable<IModObject> GetAllMods();
 }

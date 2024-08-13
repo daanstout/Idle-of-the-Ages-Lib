@@ -4,11 +4,11 @@
 
 using IdleOfTheAgesLib.User;
 
-namespace IdleOfTheAgesRuntime.User {
-    /// <summary>
-    /// A service that holds all relevant information about the player.
-    /// <para>For information about the player, see <see cref="IUserService"/>.</para>
-    /// </summary>
-    internal class PlayerService : IPlayerService {
-    }
+namespace IdleOfTheAgesRuntime.User;
+
+/// <summary>
+/// A service that holds all relevant information about the player.
+/// <para>For information about the player, see <see cref="IUserService"/>.</para>
+/// </summary>
+internal class PlayerService : IPlayerService {
 }

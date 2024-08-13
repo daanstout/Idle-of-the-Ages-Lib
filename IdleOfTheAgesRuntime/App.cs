@@ -5,189 +5,193 @@
 using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.Data;
 using IdleOfTheAgesLib.DependencyInjection;
+using IdleOfTheAgesLib.Models;
 using IdleOfTheAgesLib.Skills;
-using IdleOfTheAgesLib.UI;
 using IdleOfTheAgesLib.UI.Elements;
-using IdleOfTheAgesLib.UI.Managers;
-
+using IdleOfTheAgesLib.UI.Parsing;
 using IdleOfTheAgesRuntime.Data;
 using IdleOfTheAgesRuntime.DependencyInjection;
-using IdleOfTheAgesRuntime.UI;
-
+using IdleOfTheAgesRuntime.Services;
+using IdleOfTheAgesRuntime.UI.Parsing;
 using Newtonsoft.Json;
 
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Loader;
 
-using UnityEngine;
+namespace IdleOfTheAgesRuntime;
 
-using ILogger = IdleOfTheAgesLib.ILogger;
-
-namespace IdleOfTheAgesRuntime {
+/// <summary>
+/// The entry point of the runtime.
+/// </summary>
+public class App {
     /// <summary>
-    /// The entry point of the runtime.
+    /// Gets the main service library.
     /// </summary>
-    public class App {
-        /// <summary>
-        /// Gets the main service library.
-        /// </summary>
-        public IServiceLibrary ServiceLibrary => mainServiceLibrary;
+    public IServiceLibrary ServiceLibrary => mainServiceLibrary;
 
-        private readonly ServiceLibrary mainServiceLibrary;
-        private readonly ServiceLibrary publicServiceLibrary;
-        private readonly UIManagerService mainUIManagerService;
+    private readonly ServiceLibrary mainServiceLibrary;
+    private readonly ServiceLibrary publicServiceLibrary;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="App"/> class.
-        /// </summary>
-        public App() {
-            mainServiceLibrary = new ServiceLibrary(null);
-            publicServiceLibrary = new ServiceLibrary(mainServiceLibrary);
-            mainUIManagerService = new UIManagerService(null, mainServiceLibrary);
-            mainServiceLibrary.Bind<IUIManagerService>().ToInstance(mainUIManagerService);
-            mainServiceLibrary.Bind<ILogger>().ToInstance(new Logger("SYSTEM"));
+    /// <summary>
+    /// Initializes a new instance of the <see cref="App"/> class.
+    /// </summary>
+    public App() {
+        mainServiceLibrary = new ServiceLibrary(null);
+        publicServiceLibrary = new ServiceLibrary(mainServiceLibrary);
+    }
+
+    /// <summary>
+    /// Initializes the App Assembly.
+    /// </summary>
+    /// <param name="assembliesToInclude">Assemblies to also load with the main assembly.</param>
+    public void Initialize(params Assembly[] assembliesToInclude) {
+        var assembly = Assembly.GetExecutingAssembly();
+        RegisterServices(assembly, mainServiceLibrary, publicServiceLibrary);
+
+        var parserLibrary = mainServiceLibrary.Get<IParserLibrary>();
+
+        foreach (var includedAssembly in assembliesToInclude) {
+            RegisterServices(includedAssembly, mainServiceLibrary, publicServiceLibrary);
+            RegisterUIParsers(includedAssembly, parserLibrary);
+        }
+    }
+
+    /// <summary>
+    /// Loads all the mods in the provided folder.
+    /// </summary>
+    /// <param name="rootPath">The folder the mods are all in.</param>
+    /// <param name="assemblyLoadContext">The load context to load the mod assemblies with.</param>
+    /// <returns>Whether the loading of the mods contained any errors.</returns>
+    public Result LoadMods(string rootPath, AssemblyLoadContext assemblyLoadContext) {
+        ResultBuilder resultBuilder = new();
+
+        foreach (var modFolder in Directory.GetDirectories(rootPath)) {
+            LoadMod(modFolder, assemblyLoadContext, resultBuilder);
         }
 
-        /// <summary>
-        /// Initializes the App Assembly.
-        /// </summary>
-        /// <param name="assembliesToInclude">Assemblies to also load with the main assembly.</param>
-        public void Initialize(params Assembly[] assembliesToInclude) {
-            var assembly = Assembly.GetExecutingAssembly();
-            RegisterServices(assembly, mainServiceLibrary, publicServiceLibrary);
-            RegisterUIElements(assembly, mainServiceLibrary.Get<IElementLibrary>());
-            RegisterUIManagers(assembly, mainUIManagerService);
-
-            foreach (var assemb in assembliesToInclude) {
-                RegisterServices(assemb, mainServiceLibrary, publicServiceLibrary);
-                RegisterUIElements(assemb, mainServiceLibrary.Get<IElementLibrary>());
-                RegisterUIManagers(assemb, mainUIManagerService);
-            }
+        foreach (var mod in mainServiceLibrary.Get<IModLibrary>().GetAllMods()) {
+            RegisterUIParsers(mod.ModAssembly, mod.ServiceLibrary.Get<IParserLibrary>());
+            mod.Mod.AppLoaded(mod.ServiceLibrary);
         }
 
-        /// <summary>
-        /// Loads all the mods in the provided folder.
-        /// </summary>
-        /// <param name="rootPath">The folder the mods are all in.</param>
-        public void LoadMods(string rootPath) {
-            foreach (var modFolder in Directory.GetDirectories(rootPath)) {
-                LoadMod(modFolder);
-            }
+        return resultBuilder.Build();
+    }
 
-            foreach (var mod in mainServiceLibrary.Get<IModLibrary>().GetAllMods()) {
-                mod.Mod.AppLoaded(mod.ServiceLibrary);
-            }
+    /// <summary>
+    /// Indicates that the game has been loaded.
+    /// </summary>
+    public void GameLoaded() {
+        foreach (var mod in mainServiceLibrary.Get<IModLibrary>().GetAllMods()) {
+            mod.Mod.GameLoaded(mod.ServiceLibrary);
+            RegisterSkills(mod.ModAssembly, mainServiceLibrary.Get<ISkillService>());
+        }
+    }
+
+    private void LoadMod(string modDirectory, AssemblyLoadContext assemblyLoadContext, ResultBuilder resultBuilder) {
+        var manifest = JsonConvert.DeserializeObject<ModManifest>(File.ReadAllText(Path.Combine(modDirectory, "Manifest.json")));
+
+        if (manifest == null) {
+            resultBuilder.AddError(($"Couldn't load manifest for {modDirectory}", new InvalidOperationException()));
+            return;
         }
 
-        /// <summary>
-        /// Indicates that the game has been loaded.
-        /// </summary>
-        public void GameLoaded() {
-            foreach (var mod in mainServiceLibrary.Get<IModLibrary>().GetAllMods()) {
-                mod.Mod.GameLoaded(mod.ServiceLibrary);
-                RegisterSkills(mod.ModAssembly, mainServiceLibrary.Get<ISkillService>());
-            }
+        Assembly assembly;
+        try {
+            assembly = assemblyLoadContext.LoadFromAssemblyPath($"{modDirectory}/{manifest.Namespace}.dll");
+        } catch {
+            resultBuilder.AddError(($"Couldn't load assembly for {manifest.Namespace}", new InvalidOperationException()));
+            return;
         }
 
-        private void LoadMod(string modDirectory) {
-            var manifest = JsonConvert.DeserializeObject<ModManifest>(File.ReadAllText(Path.Combine(modDirectory, "Manifest.json")));
+        var modClass = assembly.GetType($"{manifest.Namespace}.{manifest.ModClass}");
 
-            if (manifest == null) {
-                Debug.LogError($"No manifest found in folder: {modDirectory}");
-                return;
-            }
-
-            Assembly assembly;
-            try {
-                assembly = Assembly.LoadFrom(Path.Combine(modDirectory, $"{manifest.Namespace}.dll"));
-            } catch (Exception e) {
-                Debug.LogException(e);
-                return;
-            }
-
-            var modClass = assembly.GetType($"{manifest.Namespace}.{manifest.ModClass}");
-
-            if (modClass == null) {
-                Debug.LogError($"Could not load mod class: {manifest.Namespace}.{manifest.ModClass}!");
-                return;
-            }
-
-            var modServiceLibrary = new ServiceLibrary(publicServiceLibrary);
-            var modUIManagerService = new UIManagerService(mainUIManagerService, modServiceLibrary);
-            modServiceLibrary.Bind<IUIManagerService>().ToInstance(modUIManagerService);
-
-            ModObject modObject = new ModObject {
-                Namespace = manifest.Namespace,
-                Mod = (IMod)Activator.CreateInstance(modClass),
-                Logger = new Logger(manifest.Namespace),
-                ServiceLibrary = modServiceLibrary,
-                ServiceRegistry = modServiceLibrary,
-                ModAssembly = assembly,
-            };
-
-            mainServiceLibrary.Get<IModLibrary>().RegisterMod(manifest.Namespace, modObject);
-
-            modObject.Init();
-            RegisterModSpecificServices(modObject.ServiceRegistry);
-            RegisterServices(assembly, publicServiceLibrary, modObject.ServiceRegistry);
-            RegisterUIElements(assembly, mainServiceLibrary.Get<IElementLibrary>());
-            RegisterUIManagers(assembly, modUIManagerService);
-            modObject.Mod.RegisterPublicServices(publicServiceLibrary);
-            modObject.Mod.RegisterServices(modServiceLibrary);
-            modObject.Mod.ModLoaded(modObject.ServiceLibrary);
+        if (modClass == null) {
+            resultBuilder.AddError(($"Couldn't load mod class for {manifest.Namespace} (class = {manifest.ModClass}, assembly = {assembly.FullName})", new InvalidOperationException()));
+            return;
         }
 
-        private static void RegisterModSpecificServices(IServiceRegistry serviceRegistry) {
-            serviceRegistry.RegisterService<IDataLoader, DataLoader>(null);
-        }
+        var modServiceLibrary = new ServiceLibrary(publicServiceLibrary);
 
-        private static void RegisterServices(Assembly assembly, IServiceRegistry publicServiceRegistry, IServiceRegistry modServiceRegistry) {
-            foreach (var type in assembly.GetTypes()) {
-                var serviceAttribute = type.GetCustomAttribute<ServiceAttribute>();
+        ModObject modObject = new() {
+            Namespace = manifest.Namespace,
+            Mod = (IMod)Activator.CreateInstance(modClass)!,
+            ServiceLibrary = modServiceLibrary,
+            ServiceRegistry = modServiceLibrary,
+            ModAssembly = assembly,
+        };
 
-                if (serviceAttribute == null) {
+        mainServiceLibrary.Get<IModLibrary>().RegisterMod(manifest.Namespace, modObject);
+
+        RegisterModSpecificServices(modObject.ServiceRegistry);
+        RegisterServices(assembly, publicServiceLibrary, modObject.ServiceRegistry);
+        modObject.Mod.RegisterPublicServices(publicServiceLibrary);
+        modObject.Mod.RegisterServices(modServiceLibrary);
+        modObject.Logger = new Logger(modServiceLibrary);
+        modObject.Init();
+        modObject.Mod.ModLoaded(modObject.ServiceLibrary);
+    }
+
+    private static void RegisterModSpecificServices(IServiceRegistry serviceRegistry) {
+        serviceRegistry.RegisterService<IDataLoader, DataLoader>(null);
+        serviceRegistry.RegisterService<IParserLibrary, ParserLibrary>(null);
+    }
+
+    private static void RegisterServices(Assembly assembly, IServiceRegistry publicServiceRegistry, IServiceRegistry modServiceRegistry) {
+        foreach (var type in assembly.GetTypes()) {
+            foreach (var serviceAttribute in type.GetCustomAttributes(typeof(ServiceAttribute<>))) {
+                var interfaceType = serviceAttribute.GetType().GetGenericArguments()[0];
+                var serviceLevel = (ServiceLevelEnum)serviceAttribute.GetType().GetProperty(nameof(ServiceAttribute<int>.ServiceLevel), BindingFlags.Public | BindingFlags.Instance)!.GetValue(serviceAttribute)!;
+                var serviceKey = (string)serviceAttribute.GetType().GetProperty(nameof(ServiceAttribute<int>.Key), BindingFlags.Public | BindingFlags.Instance)!.GetValue(serviceAttribute)!;
+
+                if (serviceLevel == ServiceLevelEnum.None) {
                     continue;
                 }
 
-                var targetRegistry = serviceAttribute.ServiceLevel == ServiceAttribute.ServiceLevelEnum.Public ? publicServiceRegistry : modServiceRegistry;
+                var targetRegistry = serviceLevel == ServiceLevelEnum.Public ? publicServiceRegistry : modServiceRegistry;
 
-                targetRegistry.RegisterService(serviceAttribute.InterfaceType, type, serviceAttribute.Key);
+                targetRegistry.RegisterService(interfaceType, type, serviceKey);
             }
         }
+    }
 
-        private static void RegisterUIElements(Assembly assembly, IElementLibrary elementLibrary) {
-            foreach (var type in assembly.GetTypes()) {
-                var attrib = type.GetCustomAttribute<UIElementAttribute>();
+    private static void RegisterSkills(Assembly assembly, ISkillService skillService) {
+        foreach (var type in assembly.GetTypes()) {
+            var skillAttribute = type.GetCustomAttribute<SkillAttribute>();
 
-                if (attrib == null)
-                    continue;
-
-                elementLibrary.RegisterElement(attrib.ElementInterface, type, attrib.Key);
+            if (skillAttribute == null) {
+                continue;
             }
+
+            skillService.RegisterSkillImplementation(type, skillAttribute.SkillID);
+        }
+    }
+
+    private static void RegisterUIParsers(Assembly assembly, IParserLibrary parserLibrary) {
+        foreach (var type in assembly.GetTypes()) {
+            RegisterHtmlTagParser(type);
+            RegisterUIModel(type);
         }
 
-        private static void RegisterUIManagers(Assembly assembly, UIManagerService uiManagerService) {
-            foreach (var type in assembly.GetTypes()) {
-                var attrib = type.GetCustomAttribute<UIManagerAttribute>();
+        void RegisterHtmlTagParser(Type type) {
+            var elementManagerAttribute = type.GetCustomAttribute<ElementManagerAttribute>();
 
-                if (attrib == null)
-                    continue;
-
-                uiManagerService.RegisterManager(attrib.ManagerInterfaceType, type, attrib.Identifier);
+            if (elementManagerAttribute == null) {
+                return;
             }
+
+            parserLibrary.RegisterElementManager(type, elementManagerAttribute.HtmlTag);
         }
 
-        private static void RegisterSkills(Assembly assembly, ISkillService skillService) {
-            foreach (var type in assembly.GetTypes()) {
-                var skillAttribute = type.GetCustomAttribute<SkillAttribute>();
+        void RegisterUIModel(Type type) {
+            var uiModelAttribute = type.GetCustomAttribute<UIModelAttribute>();
 
-                if (skillAttribute == null) {
-                    continue;
-                }
-
-                skillService.RegisterSkillImplementation(type, skillAttribute.SkillID);
+            if (uiModelAttribute == null) {
+                return;
             }
+
+            parserLibrary.RegisterUIModel(type, type.Name);
         }
     }
 }

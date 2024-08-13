@@ -4,83 +4,82 @@
 
 using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.Translation;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace IdleOfTheAgesRuntime.Translation {
-    /// <summary>
-    /// Allows for translation of text.
-    /// </summary>
-    [Service(typeof(ITranslationService), serviceLevel: ServiceAttribute.ServiceLevelEnum.Public)]
-    public class TranslationService : ITranslationService {
-        /// <inheritdoc/>
-        public Language CurrentLanguage { get; private set; }
+namespace IdleOfTheAgesRuntime.Translation;
 
-        /// <inheritdoc/>
-        public event Action<Language>? LanguageChangedEvent;
+/// <summary>
+/// Allows for translation of text.
+/// </summary>
+[Service<ITranslationService>(ServiceLevel = ServiceLevelEnum.Public)]
+public class TranslationService : ITranslationService {
+    /// <inheritdoc/>
+    public string CurrentLanguage { get; private set; } = string.Empty;
 
-        private readonly Dictionary<Language, HashSet<string>> languagePaths = new Dictionary<Language, HashSet<string>>();
-        private readonly Dictionary<string, string> translations = new Dictionary<string, string>();
+    /// <inheritdoc/>
+    public event Action<string>? LanguageChangedEvent;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TranslationService"/> class.
-        /// </summary>
-        public TranslationService() {
-            foreach (var language in Enum.GetValues(typeof(Language)).Cast<Language>()) {
-                languagePaths[language] = new HashSet<string>();
-            }
-        }
+    private readonly Dictionary<string, HashSet<string>> languagePaths = [];
+    private readonly Dictionary<string, string> translations = [];
 
-        /// <inheritdoc/>
-        public Result ChangeLanguage(Language language) {
-            if (language == CurrentLanguage) {
-                return true;
-            }
-
-            CurrentLanguage = language;
-
-            LoadLanguage(CurrentLanguage);
-
-            LanguageChangedEvent?.Invoke(language);
-
+    /// <inheritdoc/>
+    public Result ChangeLanguage(string language) {
+        if (language == CurrentLanguage) {
             return true;
         }
 
-        /// <inheritdoc/>
-        public Result<string> GetLanguageString(string key) {
-            return translations[key];
+        CurrentLanguage = language;
+
+        LoadLanguage(CurrentLanguage);
+
+        LanguageChangedEvent?.Invoke(language);
+
+        return true;
+    }
+
+    /// <inheritdoc/>
+    public Result<string> GetLanguageString(string key) {
+        return translations[key];
+    }
+
+    /// <inheritdoc/>
+    public Result LoadLanguagePath(string language, string path) {
+        if (!languagePaths.TryGetValue(language, out var paths)) {
+            paths = [];
+            languagePaths[language] = paths;
         }
 
-        /// <inheritdoc/>
-        public Result LoadLanguagePath(Language language, string path) {
-            languagePaths[language].Add(path);
+        paths.Add(path);
 
-            if (language == CurrentLanguage) {
-                LoadFile(path);
-            }
-
-            return true;
+        if (language == CurrentLanguage) {
+            LoadFile(path);
         }
 
-        private void LoadLanguage(Language language) {
-            translations.Clear();
+        return true;
+    }
 
-            foreach (var file in languagePaths[language]) {
-                LoadFile(file);
-            }
+    private void LoadLanguage(string language) {
+        if (!languagePaths.TryGetValue(language, out var paths)) {
+            return;
         }
 
-        private void LoadFile(string path) {
-            var contents = File.ReadAllLines(path);
+        translations.Clear();
 
-            foreach (var line in contents) {
-                var split = line.Split('=');
-                if (!translations.ContainsKey(split[0])) {
-                    translations[split[0]] = split[1];
-                }
+        foreach (var file in paths) {
+            LoadFile(file);
+        }
+    }
+
+    private void LoadFile(string path) {
+        var contents = File.ReadAllLines(path);
+
+        foreach (var line in contents) {
+            var split = line.Split('=');
+            if (!translations.ContainsKey(split[0])) {
+                translations[split[0]] = split[1];
             }
         }
     }
