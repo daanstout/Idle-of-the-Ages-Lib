@@ -1,1 +1,1 @@
-copy %1 "../../Idle of the Ages/Resources"
+copy %1 "../../Idle of the Ages UI/Resources"
