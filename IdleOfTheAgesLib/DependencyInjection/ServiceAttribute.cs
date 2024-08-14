@@ -41,11 +41,13 @@ public class ServiceAttribute<TInterface>() : Attribute {
 
     /// <summary>
     /// Gets the key for identifying this service.
+    /// <para>Default = <see langword="null"/>.</para>
     /// </summary>
-    public string? Key { get; init; }
+    public string? Key { get; init; } = null;
 
     /// <summary>
     /// Gets whether this service should be public or private.
+    /// <para>Default = <see cref="ServiceLevelEnum.Public"/>.</para>
     /// </summary>
     public ServiceLevelEnum ServiceLevel { get; init; } = ServiceLevelEnum.Public;
 }

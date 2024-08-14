@@ -15,6 +15,7 @@ public interface IUIManager {
     /// Adds a piece of UI to the screen.
     /// </summary>
     /// <param name="uiID">The ID of the UI to add.</param>
+    /// <param name="parentID">The ID of the parent node.</param>
     /// <returns>Returns whether the UI was succesfully added.</returns>
-    Result AddUI(string uiID);
+    Result AddUI(string uiID, string parentID);
 }
