@@ -15,13 +15,16 @@ namespace IdleOfTheAgesRuntime.DependencyInjection;
 [Service<IDependencyInjector>(ServiceLevel = ServiceLevelEnum.Public)]
 public class DependencyInjector : IDependencyInjector {
     private readonly IServiceLibrary serviceLibrary;
+    private readonly string injectDependenciesMethodName;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DependencyInjector"/> class.
     /// </summary>
     /// <param name="serviceLibrary">The service library to get the dependencies from.</param>
-    public DependencyInjector(IServiceLibrary serviceLibrary) {
+    /// <param name="injectDependenciesMethodName">The method to call to inject dependencies in to an object.</param>
+    public DependencyInjector(IServiceLibrary serviceLibrary, string injectDependenciesMethodName = "InjectDependencies") {
         this.serviceLibrary = serviceLibrary;
+        this.injectDependenciesMethodName = injectDependenciesMethodName;
     }
 
     /// <inheritdoc/>
@@ -32,15 +35,19 @@ public class DependencyInjector : IDependencyInjector {
 
         var type = target.GetType();
 
-        var method = type.GetMethod("InjectDependencies");
+        var method = type.GetMethod(injectDependenciesMethodName);
 
         if (method == null) {
-            return (false, "No inject dependencies method found on object.", new ArgumentException(null, nameof(target)));
+            return (false, $"No method found on object called '{injectDependenciesMethodName}'.", new ArgumentException(null, nameof(target)));
         }
 
         var parameters = serviceLibrary.GetInstances(method.GetParameters());
 
-        method.Invoke(target, parameters);
+        try {
+            method.Invoke(target, parameters);
+        } catch (Exception e) {
+            return (false, $"An error occured while trying to inject the object.", e);
+        }
 
         return true;
     }

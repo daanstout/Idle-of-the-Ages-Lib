@@ -56,7 +56,7 @@ public sealed class ServiceLibrary : IServiceLibrary, IServiceRegistry {
     /// <inheritdoc/>
     public Result<IResolver<TType>> Bind<TType>(string? key = null)
             where TType : class {
-        return new Result<IResolver<TType>>((IResolver<TType>)Bind(typeof(TType), key));
+        return Bind(typeof(TType), key).Cast<IResolver<TType>>();
     }
 
     /// <inheritdoc/>

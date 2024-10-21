@@ -8,7 +8,7 @@ namespace IdleOfTheAgesRuntime.User;
 
 /// <summary>
 /// A service that holds all relevant information about the player.
-/// <para>For information about the player, see <see cref="IUserService"/>.</para>
+/// <para>For information about the user, see <see cref="IUserService"/>.</para>
 /// </summary>
 internal class PlayerService : IPlayerService {
 }

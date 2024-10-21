@@ -49,7 +49,7 @@ public class ResultBuilder {
     /// </summary>
     /// <returns>The created Result object.</returns>
     public Result Build() {
-        return Build(errors.Count == 0);
+        return new Result(errors.Count == 0, errors);
     }
 
     /// <summary>
@@ -60,14 +60,5 @@ public class ResultBuilder {
     /// <returns>The created Result object.</returns>
     public Result<T> Build<T>(T result) {
         return new Result<T>(result, errors);
-    }
-
-    /// <summary>
-    /// Builds the result object.
-    /// </summary>
-    /// <param name="result">Whether the operation succeeded.</param>
-    /// <returns>The created Result object.</returns>
-    public Result Build(bool result) {
-        return new Result(result, errors);
     }
 }

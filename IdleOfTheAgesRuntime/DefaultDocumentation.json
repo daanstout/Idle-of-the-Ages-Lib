@@ -1,5 +1,5 @@
 {
     "Markdown.RemoveFileExtensionFromUrl": true,
-    "OutputDirectoryPath": "..\\Idle-of-the-Ages-Lib.wiki\\Modding\\Lib",
+    "OutputDirectoryPath": "..\\Idle-of-the-Ages-Lib.wiki\\Modding\\Runtime",
     "FileNameFactory": "Name"
 }

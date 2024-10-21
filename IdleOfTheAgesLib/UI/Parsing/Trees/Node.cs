@@ -9,54 +9,41 @@ namespace IdleOfTheAgesLib.UI.Parsing.Trees;
 /// <summary>
 /// A node that contains information about a HTML tag for the UI.
 /// </summary>
-public class Node {
+/// <typeparam name="T">The type of the node.</typeparam>
+public abstract class Node<T> where T : Node<T> {
     /// <summary>
     /// Gets the parent node of this node.
     /// </summary>
-    public Node? Parent { get; private set; }
+    public T? Parent { get; private set; }
 
     /// <summary>
     /// Gets the child nodes of this node.
     /// </summary>
-    public IReadOnlyList<Node> ChildNodes => childNodes;
-
-    /// <summary>
-    /// Gets the metadata of this node.
-    /// </summary>
-    public IReadOnlyDictionary<string, string> Metadata => metadata;
+    public IReadOnlyList<T> ChildNodes => childNodes;
 
     /// <summary>
     /// Gets the HTML tag that this node is for.
     /// </summary>
-    public string HtmlTag { get; }
+    public string Identifier { get; init; } = string.Empty;
 
-    private readonly Dictionary<string, string> metadata = [];
-    private readonly List<Node> childNodes = [];
+    private readonly List<T> childNodes = [];
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Node"/> class.
+    /// Initializes a new instance of the <see cref="Node{T}"/> class.
     /// </summary>
-    /// <param name="htmlTag">The HTML tag this node is parsing.</param>
-    public Node(string htmlTag) => HtmlTag = htmlTag;
+    protected Node() { }
 
     /// <summary>
     /// Adds a node as a child of this node.
     /// </summary>
     /// <param name="child">The child node of this node.</param>
-    public void AddChildNode(Node child) {
-        child.SetParent(this);
+    public void AddChildNode(T child) {
+        child.SetParent((this as T)!);
         childNodes.Add(child);
     }
 
-    /// <summary>
-    /// Add Metadata.
-    /// </summary>
-    /// <param name="key">key.</param>
-    /// <param name="value">value.</param>
-    public void AddMetadata(string key, string value) => metadata[key] = value;
-
-    private void SetParent(Node parent) {
-        Parent?.childNodes.Remove(this);
+    private void SetParent(T parent) {
+        Parent?.childNodes.Remove((this as T)!);
 
         Parent = parent;
     }

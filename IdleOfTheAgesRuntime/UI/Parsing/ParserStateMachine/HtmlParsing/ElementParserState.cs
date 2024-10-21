@@ -6,12 +6,12 @@ using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.FSM;
 using IdleOfTheAgesLib.UI.Parsing.Trees;
 
-namespace IdleOfTheAgesRuntime.UI.Parsing.ParserStateMachine;
+namespace IdleOfTheAgesRuntime.UI.Parsing.ParserStateMachine.HtmlParsing;
 
 /// <summary>
 /// A state that parses elements.
 /// </summary>
-public class ElementParserState : State<ParserState> {
+public class ElementParserState : State<ParserData<HtmlNode>> {
     /// <summary>
     /// Gets a static instance to use.
     /// </summary>
@@ -20,20 +20,21 @@ public class ElementParserState : State<ParserState> {
     private ElementParserState() { }
 
     /// <inheritdoc/>
-    public override Result<State<ParserState>> Tick(ParserState input) {
-        if (input.GetCurrentChar() == '/') {
+    public override Result<State<ParserData<HtmlNode>>> Tick(ParserData<HtmlNode> input) {
+        if (input.ParsingInput.GetCurrentChar() == '/') {
             input.CloseNodeWhenFinished = true;
-            input.CurrentCharacterIndex++;
+            input.ParsingInput.CurrentCharacterIndex++;
         }
 
-        string htmlTag = input.ReadCurrentWord();
+        string htmlTag = input.ParsingInput.ReadCurrentWord(CharactersFlags.AlphaNumerical);
 
         if (input.CloseNodeWhenFinished) {
-            if (input.CurrentNode.HtmlTag != htmlTag) {
-                return (null, $"An incorrect tag-pair has been found! Tag {htmlTag} is trying to close {input.CurrentNode.HtmlTag} at {input.CurrentCharacterIndex}");
-            }
+            if (input.CurrentNode.Identifier != htmlTag)
+                return (null, $"An incorrect tag-pair has been found! Tag {htmlTag} is trying to close {input.CurrentNode.Identifier} at {input.ParsingInput.CurrentCharacterIndex}");
         } else {
-            Node newNode = new(htmlTag);
+            HtmlNode newNode = new() {
+                Identifier = htmlTag,
+            };
             input.CurrentNode.AddChildNode(newNode);
             input.CurrentNode = newNode;
         }

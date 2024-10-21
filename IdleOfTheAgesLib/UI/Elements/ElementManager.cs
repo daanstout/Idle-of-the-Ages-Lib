@@ -37,7 +37,7 @@ public abstract class ElementManager {
     /// <param name="node">The node that contains data about the element.</param>
     /// <param name="context">The ui context to use while constructing the element.</param>
     /// <returns>The constructed UI element.</returns>
-    public virtual Result<object?> ConstructObject(Node node, UIContext context) => new(null);
+    public virtual Result<object?> ConstructObject(HtmlNode node, UIContext context) => new(null);
 
     /// <summary>
     /// Allows the element manager to initialize the context or element with relevant data.
@@ -45,7 +45,7 @@ public abstract class ElementManager {
     /// <param name="node">The node that contains data about the element.</param>
     /// <param name="context">The ui context to use while constructing the element.</param>
     /// <returns><see langword="true"/> if the initialisation was succesful, <see langword="false"/> if something went wrong.</returns>
-    public virtual Result Initialize(Node node, UIContext context) => true;
+    public virtual Result Initialize(HtmlNode node, UIContext context) => true;
 
     /// <summary>
     /// Updates the element to ensure the view changes when the state of the game changes.

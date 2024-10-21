@@ -12,9 +12,7 @@ using IdleOfTheAgesLib.UI.Parsing;
 using IdleOfTheAgesRuntime.Data;
 using IdleOfTheAgesRuntime.DependencyInjection;
 using IdleOfTheAgesRuntime.Services;
-using IdleOfTheAgesRuntime.UI.Parsing;
 using Newtonsoft.Json;
-
 using System;
 using System.IO;
 using System.Reflection;
@@ -100,8 +98,8 @@ public class App {
         Assembly assembly;
         try {
             assembly = assemblyLoadContext.LoadFromAssemblyPath($"{modDirectory}/{manifest.Namespace}.dll");
-        } catch {
-            resultBuilder.AddError(($"Couldn't load assembly for {manifest.Namespace}", new InvalidOperationException()));
+        } catch (Exception exception) {
+            resultBuilder.AddError(($"Couldn't load assembly for {manifest.Namespace} due to exception of type {exception.GetType().FullName}", exception));
             return;
         }
 
@@ -124,7 +122,6 @@ public class App {
 
         mainServiceLibrary.Get<IModLibrary>().RegisterMod(manifest.Namespace, modObject);
 
-        RegisterModSpecificServices(modObject.ServiceRegistry);
         RegisterServices(assembly, publicServiceLibrary, modObject.ServiceRegistry);
         modObject.Mod.RegisterPublicServices(publicServiceLibrary);
         modObject.Mod.RegisterServices(modServiceLibrary);
@@ -133,25 +130,22 @@ public class App {
         modObject.Mod.ModLoaded(modObject.ServiceLibrary);
     }
 
-    private static void RegisterModSpecificServices(IServiceRegistry serviceRegistry) {
-        serviceRegistry.RegisterService<IDataLoader, DataLoader>(null);
-        serviceRegistry.RegisterService<IParserLibrary, ParserLibrary>(null);
-    }
-
-    private static void RegisterServices(Assembly assembly, IServiceRegistry publicServiceRegistry, IServiceRegistry modServiceRegistry) {
+    private static void RegisterServices(Assembly assembly, IServiceRegistry publicServiceRegistry, IServiceRegistry privateServiceRegistry) {
         foreach (var type in assembly.GetTypes()) {
             foreach (var serviceAttribute in type.GetCustomAttributes(typeof(ServiceAttribute<>))) {
                 var interfaceType = serviceAttribute.GetType().GetGenericArguments()[0];
-                var serviceLevel = (ServiceLevelEnum)serviceAttribute.GetType().GetProperty(nameof(ServiceAttribute<int>.ServiceLevel), BindingFlags.Public | BindingFlags.Instance)!.GetValue(serviceAttribute)!;
-                var serviceKey = (string)serviceAttribute.GetType().GetProperty(nameof(ServiceAttribute<int>.Key), BindingFlags.Public | BindingFlags.Instance)!.GetValue(serviceAttribute)!;
+                var serviceLevel = (serviceAttribute.GetType().GetProperty(nameof(ServiceAttribute<int>.ServiceLevel), BindingFlags.Public | BindingFlags.Instance)?.GetValue(serviceAttribute) as ServiceLevelEnum?) ?? ServiceLevelEnum.None;
+                var serviceKey = serviceAttribute.GetType().GetProperty(nameof(ServiceAttribute<int>.Key), BindingFlags.Public | BindingFlags.Instance)!.GetValue(serviceAttribute) as string;
 
                 if (serviceLevel == ServiceLevelEnum.None) {
                     continue;
                 }
 
-                var targetRegistry = serviceLevel == ServiceLevelEnum.Public ? publicServiceRegistry : modServiceRegistry;
-
-                targetRegistry.RegisterService(interfaceType, type, serviceKey);
+                (serviceLevel switch {
+                    ServiceLevelEnum.Public => publicServiceRegistry,
+                    ServiceLevelEnum.Private => privateServiceRegistry,
+                    _ => null,
+                })?.RegisterService(interfaceType, type, serviceKey);
             }
         }
     }

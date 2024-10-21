@@ -3,6 +3,7 @@
 // </copyright>
 
 using IdleOfTheAgesLib;
+using IdleOfTheAgesLib.IO;
 using IdleOfTheAgesLib.Models;
 using IdleOfTheAgesLib.Models.JsonConverters;
 using IdleOfTheAgesLib.Skills;
@@ -19,6 +20,7 @@ namespace IdleOfTheAgesRuntime;
 /// <summary>
 /// Allows for loading in data into the game.
 /// </summary>
+[Service<IDataLoader>]
 public class DataLoader : IDataLoader {
     private static readonly JsonSerializerSettings SETTINGS = new() {
         ContractResolver = new DefaultContractResolver {
@@ -35,7 +37,7 @@ public class DataLoader : IDataLoader {
     private readonly ISkillService skillService;
     private readonly ITranslationService translationService;
     private readonly IActionLibrary actionLibrary;
-    private readonly IParserService parserService;
+    private readonly IFileLoader fileLoader;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DataLoader"/> class.
@@ -43,12 +45,16 @@ public class DataLoader : IDataLoader {
     /// <param name="skillService">The skill service to load skills into.</param>
     /// <param name="translationService">The translation service to load translation files into.</param>
     /// <param name="actionLibrary">The action library to load actions into.</param>
-    /// <param name="parserService">The parser service to load UI files into.</param>
-    public DataLoader(ISkillService skillService, ITranslationService translationService, IActionLibrary actionLibrary, IParserService parserService) {
+    /// <param name="fileLoader">The file loader to register files into.</param>
+    public DataLoader(
+        ISkillService skillService,
+        ITranslationService translationService,
+        IActionLibrary actionLibrary,
+        IFileLoader fileLoader) {
         this.skillService = skillService;
         this.translationService = translationService;
         this.actionLibrary = actionLibrary;
-        this.parserService = parserService;
+        this.fileLoader = fileLoader;
     }
 
     /// <inheritdoc/>
@@ -62,12 +68,12 @@ public class DataLoader : IDataLoader {
 
         LoadDataInDirectory(mod.Namespace, path, builder);
 
-        return builder.Build(true);
+        return builder.Build();
     }
 
     private void LoadDataInDirectory(string modNamespace, string directory, ResultBuilder builder) {
-        foreach (var file in Directory.GetFiles(directory)) {
-            LoadFile(modNamespace, file, builder);
+        foreach (var filePath in Directory.GetFiles(directory)) {
+            LoadFile(modNamespace, filePath, builder);
         }
 
         foreach (var subDirectory in Directory.GetDirectories(directory)) {
@@ -75,8 +81,8 @@ public class DataLoader : IDataLoader {
         }
     }
 
-    private void LoadFile(string modNamespace, string file, ResultBuilder builder) {
-        var extension = Path.GetExtension(file);
+    private void LoadFile(string modNamespace, string filePath, ResultBuilder builder) {
+        var extension = Path.GetExtension(filePath);
 
         if (EXPLICITLY_IGNORED_EXTENSIONS.Contains(extension)) {
             return;
@@ -84,37 +90,45 @@ public class DataLoader : IDataLoader {
 
         switch (extension) {
             case ".txt":
-                var language = Path.GetFileNameWithoutExtension(file);
+                var fileName = Path.GetFileNameWithoutExtension(filePath);
 
-                if (Languages.IsLanguageSupported(language)) {
-                    translationService.LoadLanguagePath(language, file);
+                if (Languages.IsLanguageSupported(fileName)) {
+                    // It is a language file.
+                    builder.AddResult(translationService.LoadLanguagePath(fileName, filePath));
                 } else {
-                    builder.AddError($"Failed loading language file: {file}. The language is not supported.");
+                    builder.AddResult(fileLoader.RegisterFile(extension, $"{modNamespace}:{fileName}", filePath));
                 }
 
                 break;
             case ".json":
-                var rawJson = File.ReadAllText(file);
+                var rawJson = File.ReadAllText(filePath);
 
                 try {
                     var data = JsonConvert.DeserializeObject<ModData>(rawJson, SETTINGS);
 
                     if (data == null) {
-                        builder.AddError($"Error while parsing json at file path: {file}");
+                        builder.AddError($"Error while parsing json at file path: {filePath}");
                         break;
                     }
 
                     LoadModData(data, builder);
                 } catch (Exception e) {
-                    builder.AddError(($"Error while parsing json at file path: {file}", e));
+                    builder.AddError(($"Error while parsing json at file path: {filePath}", e));
                 }
 
                 break;
             case ".html":
-                var fileName = Path.GetFileNameWithoutExtension(file);
-                fileName = $"{modNamespace}:{fileName}";
+                var htmlFileName = Path.GetFileNameWithoutExtension(filePath);
+                htmlFileName = $"{modNamespace}:{htmlFileName}";
 
-                builder.AddResult(parserService.RegisterFile(fileName, file));
+                builder.AddResult(fileLoader.RegisterFile(extension, htmlFileName, filePath));
+
+                break;
+            case ".css":
+                var cssFileName = Path.GetFileNameWithoutExtension(filePath);
+                cssFileName = $"{modNamespace}:{cssFileName}";
+
+                builder.AddResult(fileLoader.RegisterFile(extension, cssFileName, filePath));
 
                 break;
             case ".png":

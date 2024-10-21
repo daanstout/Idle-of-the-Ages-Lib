@@ -144,13 +144,29 @@ public class Result<T> {
     }
 
     /// <summary>
+    /// Casts a result's value to a different type.
+    /// </summary>
+    /// <typeparam name="TOther">The type to cast to.</typeparam>
+    /// <returns>A result object for the casted type.</returns>
+    public Result<TOther> Cast<TOther>() where TOther : T {
+        if (!this) {
+            return new Result<TOther>(default, Errors);
+        }
+
+        if (Value is TOther casted) {
+            return new Result<TOther>(casted);
+        }
+
+        return (default, $"Could not cast from {typeof(T).FullName} to {typeof(TOther).FullName}");
+    }
+
+    /// <summary>
     /// Implicitly casts a <see cref="Result{T}"/> object to a bool.
     /// <para>This returns <see langword="true"/> if the call was successful, and <see langword="false"/> if something went wrong.</para>
     /// </summary>
     /// <param name="result">The result object to cast.</param>
     /// <exception cref="InvalidOperationException">Thrown if the <paramref name="result"/> object is <see langword="null"/>.</exception>
     [MemberNotNullWhen(true, nameof(Value))]
-    [MemberNotNull(nameof(Value))]
     public static implicit operator bool([NotNullWhen(true)] Result<T>? result) {
         if (result == null) {
             return false;

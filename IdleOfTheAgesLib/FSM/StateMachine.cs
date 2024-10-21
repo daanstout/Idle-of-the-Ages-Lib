@@ -51,7 +51,7 @@ public class StateMachine<T> {
 
         do {
             result = Tick(input);
-        } while (result == StateMachineResult.InProgress);
+        } while (result && result == StateMachineResult.InProgress);
 
         if (result) {
             return input;

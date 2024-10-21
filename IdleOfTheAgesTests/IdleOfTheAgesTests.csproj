@@ -16,6 +16,11 @@
     <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Skills\**" />
+    <EmbeddedResource Remove="Skills\**" />
+    <None Remove="Skills\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.17">
@@ -35,8 +40,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdleOfTheAgesRuntime\IdleOfTheAgesRuntime.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Skills\" />
   </ItemGroup>
 </Project>
