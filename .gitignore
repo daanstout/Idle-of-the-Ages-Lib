@@ -11,6 +11,7 @@ Idle-of-the-Ages.wiki
 *.user
 *.userosscache
 *.sln.docstates
+Idle-of-the-Ages-Lib.wiki/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
