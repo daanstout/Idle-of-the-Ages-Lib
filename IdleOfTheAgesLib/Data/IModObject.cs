@@ -12,11 +12,6 @@ namespace IdleOfTheAgesLib;
 /// </summary>
 public interface IModObject {
     /// <summary>
-    /// Gets a logger to log data to.
-    /// </summary>
-    ILogger Logger { get; }
-
-    /// <summary>
     /// Gets the instance of the mod's initializer class.
     /// </summary>
     IMod Mod { get; }

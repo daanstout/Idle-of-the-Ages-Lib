@@ -13,28 +13,24 @@ namespace IdleOfTheAgesRuntime.Data;
 /// </summary>
 public class ModObject : IModObject {
     /// <inheritdoc/>
-    public string Namespace { get; set; } = string.Empty;
+    public required string Namespace { get; init; }
 
     /// <inheritdoc/>
-    public IMod Mod { get; set; } = null!;
+    public required IMod Mod { get; set; }
 
     /// <inheritdoc/>
-    public ILogger Logger { get; set; } = null!;
+    public required IServiceLibrary ServiceLibrary { get; set; } = null!;
 
     /// <inheritdoc/>
-    public IServiceLibrary ServiceLibrary { get; set; } = null!;
+    public required IServiceRegistry ServiceRegistry { get; set; } = null!;
 
     /// <inheritdoc/>
-    public IServiceRegistry ServiceRegistry { get; set; } = null!;
-
-    /// <inheritdoc/>
-    public Assembly ModAssembly { get; set; } = null!;
+    public required Assembly ModAssembly { get; set; } = null!;
 
     /// <summary>
     /// Initializes the Mod Object.
     /// </summary>
     public void Init() {
         ServiceLibrary.Bind<IModObject>().Value!.ToInstance(this);
-        ServiceLibrary.Bind<ILogger>().Value!.ToInstance(Logger);
     }
 }

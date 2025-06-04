@@ -161,6 +161,16 @@ public class Result<T> {
     }
 
     /// <summary>
+    /// Casts a result to a result of a different type, while retaining any errors.
+    /// </summary>
+    /// <typeparam name="TOther">The type of the object to change to.</typeparam>
+    /// <param name="obj">The object to return with the result object.</param>
+    /// <returns>The casted result object.</returns>
+    public Result<TOther> To<TOther>(TOther? obj = default) {
+        return new Result<TOther>(obj, Errors);
+    }
+
+    /// <summary>
     /// Implicitly casts a <see cref="Result{T}"/> object to a bool.
     /// <para>This returns <see langword="true"/> if the call was successful, and <see langword="false"/> if something went wrong.</para>
     /// </summary>

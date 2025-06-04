@@ -14,7 +14,7 @@ public class ModManifest {
     /// Gets the namespace of a mod.
     /// </summary>
     [JsonProperty("namespace")]
-    public string Namespace { get; init; } = string.Empty;
+    public required string Namespace { get; init; }
 
     /// <summary>
     /// Gets the path to the mod's thumbnail.

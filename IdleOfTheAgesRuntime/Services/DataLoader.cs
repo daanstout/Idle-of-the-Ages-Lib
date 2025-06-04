@@ -8,7 +8,7 @@ using IdleOfTheAgesLib.Models;
 using IdleOfTheAgesLib.Models.JsonConverters;
 using IdleOfTheAgesLib.Skills;
 using IdleOfTheAgesLib.Translation;
-using IdleOfTheAgesLib.UI.Parsing;
+using IdleOfTheAgesLib.UI.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -38,6 +38,7 @@ public class DataLoader : IDataLoader {
     private readonly ITranslationService translationService;
     private readonly IActionLibrary actionLibrary;
     private readonly IFileLoader fileLoader;
+    private readonly ICssLibrary cssLibrary;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DataLoader"/> class.
@@ -46,15 +47,14 @@ public class DataLoader : IDataLoader {
     /// <param name="translationService">The translation service to load translation files into.</param>
     /// <param name="actionLibrary">The action library to load actions into.</param>
     /// <param name="fileLoader">The file loader to register files into.</param>
-    public DataLoader(
-        ISkillService skillService,
-        ITranslationService translationService,
-        IActionLibrary actionLibrary,
-        IFileLoader fileLoader) {
+    /// <param name="cssLibrary">The css library to register css files into.</param>
+    public DataLoader(ISkillService skillService, ITranslationService translationService, IActionLibrary actionLibrary, IFileLoader fileLoader,
+        ICssLibrary cssLibrary) {
         this.skillService = skillService;
         this.translationService = translationService;
         this.actionLibrary = actionLibrary;
         this.fileLoader = fileLoader;
+        this.cssLibrary = cssLibrary;
     }
 
     /// <inheritdoc/>
@@ -125,10 +125,7 @@ public class DataLoader : IDataLoader {
 
                 break;
             case ".css":
-                var cssFileName = Path.GetFileNameWithoutExtension(filePath);
-                cssFileName = $"{modNamespace}:{cssFileName}";
-
-                builder.AddResult(fileLoader.RegisterFile(extension, cssFileName, filePath));
+                builder.AddResult(cssLibrary.RegisterCSS(filePath));
 
                 break;
             case ".png":

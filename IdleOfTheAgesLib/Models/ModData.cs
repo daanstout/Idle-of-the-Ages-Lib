@@ -62,15 +62,9 @@ public class ModData {
     /// <param name="items">The items this mod adds.</param>
     /// <param name="actions">The actions this mod adds.</param>
     /// <param name="lootTables">The loot tables this mod adds.</param>
-    public ModData(
-        string @namespace,
-        IReadOnlyList<SkillCategoryData>? skillCategories = null,
-        IReadOnlyList<SkillData>? skills = null,
-        IReadOnlyList<PageGroupData>? pageGroups = null,
-        IReadOnlyList<PageData>? pages = null,
-        IReadOnlyList<ItemData>? items = null,
-        IReadOnlyList<ActionData>? actions = null,
-        IReadOnlyList<LootTable>? lootTables = null) {
+    public ModData(string @namespace, IReadOnlyList<SkillCategoryData>? skillCategories = null, IReadOnlyList<SkillData>? skills = null,
+        IReadOnlyList<PageGroupData>? pageGroups = null, IReadOnlyList<PageData>? pages = null, IReadOnlyList<ItemData>? items = null,
+        IReadOnlyList<ActionData>? actions = null, IReadOnlyList<LootTable>? lootTables = null) {
         Namespace = @namespace;
         SkillCategories = skillCategories ?? [];
         Skills = skills ?? [];

@@ -7,8 +7,6 @@ using IdleOfTheAgesLib.Data;
 using IdleOfTheAgesLib.DependencyInjection;
 using IdleOfTheAgesLib.Models;
 using IdleOfTheAgesLib.Skills;
-using IdleOfTheAgesLib.UI.Elements;
-using IdleOfTheAgesLib.UI.Parsing;
 using IdleOfTheAgesRuntime.Data;
 using IdleOfTheAgesRuntime.DependencyInjection;
 using IdleOfTheAgesRuntime.Services;
@@ -48,11 +46,8 @@ public class App {
         var assembly = Assembly.GetExecutingAssembly();
         RegisterServices(assembly, mainServiceLibrary, publicServiceLibrary);
 
-        var parserLibrary = mainServiceLibrary.Get<IParserLibrary>();
-
         foreach (var includedAssembly in assembliesToInclude) {
             RegisterServices(includedAssembly, mainServiceLibrary, publicServiceLibrary);
-            RegisterUIParsers(includedAssembly, parserLibrary);
         }
     }
 
@@ -70,7 +65,6 @@ public class App {
         }
 
         foreach (var mod in mainServiceLibrary.Get<IModLibrary>().GetAllMods()) {
-            RegisterUIParsers(mod.ModAssembly, mod.ServiceLibrary.Get<IParserLibrary>());
             mod.Mod.AppLoaded(mod.ServiceLibrary);
         }
 
@@ -125,7 +119,6 @@ public class App {
         RegisterServices(assembly, publicServiceLibrary, modObject.ServiceRegistry);
         modObject.Mod.RegisterPublicServices(publicServiceLibrary);
         modObject.Mod.RegisterServices(modServiceLibrary);
-        modObject.Logger = new Logger(modServiceLibrary);
         modObject.Init();
         modObject.Mod.ModLoaded(modObject.ServiceLibrary);
     }
@@ -159,33 +152,6 @@ public class App {
             }
 
             skillService.RegisterSkillImplementation(type, skillAttribute.SkillID);
-        }
-    }
-
-    private static void RegisterUIParsers(Assembly assembly, IParserLibrary parserLibrary) {
-        foreach (var type in assembly.GetTypes()) {
-            RegisterHtmlTagParser(type);
-            RegisterUIModel(type);
-        }
-
-        void RegisterHtmlTagParser(Type type) {
-            var elementManagerAttribute = type.GetCustomAttribute<ElementManagerAttribute>();
-
-            if (elementManagerAttribute == null) {
-                return;
-            }
-
-            parserLibrary.RegisterElementManager(type, elementManagerAttribute.HtmlTag);
-        }
-
-        void RegisterUIModel(Type type) {
-            var uiModelAttribute = type.GetCustomAttribute<UIModelAttribute>();
-
-            if (uiModelAttribute == null) {
-                return;
-            }
-
-            parserLibrary.RegisterUIModel(type, type.Name);
         }
     }
 }

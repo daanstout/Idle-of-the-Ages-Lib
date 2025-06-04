@@ -14,7 +14,7 @@ public class DependencyIdentifierAttribute : Attribute {
     /// <summary>
     /// Gets key of the dependency instance to obtain.
     /// </summary>
-    public string Key { get; init; }
+    public required string Key { get; init; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DependencyIdentifierAttribute"/> class.

@@ -1,0 +1,3 @@
+[submodule "Idle of the Ages Wiki"]
+	path = Idle-of-the-Ages-Lib.wiki
+	url = https://github.com/daanstout/Idle-of-the-Ages-Lib.wiki.git

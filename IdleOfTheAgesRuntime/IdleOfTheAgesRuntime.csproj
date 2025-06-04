@@ -26,7 +26,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+    <PackageReference Include="ExCSS" Version="4.3.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.71" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -38,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdleOfTheAgesLib\IdleOfTheAgesLib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\DataLoaders\" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="call postbuild.bat $(OutDir)IdleOfTheAgesRuntime.dll&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesRuntime.xml&#xD;&#xA;call postbuild.bat $(OutDir)IdleOfTheAgesRuntime.pdb" />

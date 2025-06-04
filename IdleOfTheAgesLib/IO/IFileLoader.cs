@@ -19,11 +19,18 @@ public interface IFileLoader {
     public Result RegisterFile(string category, string identifier, string path, bool cacheFile = false);
 
     /// <summary>
-    /// Reads the contents of a file.
+    /// Reads the contents of a registered file.
     /// </summary>
     /// <param name="category">The category the file belongs to.</param>
     /// <param name="identifier">The identifier for the file.</param>
     /// <param name="cacheFile">Whether to cache the file for faster lookup next time.</param>
     /// <returns>The contents of the requested file.</returns>
     public Result<string> GetFileContents(string category, string identifier, bool cacheFile = true);
+
+    /// <summary>
+    /// Reads the contents of a file.
+    /// </summary>
+    /// <param name="path">The path the file is at.</param>
+    /// <returns>The contents of the file.</returns>
+    Result<string> ReadFile(string path);
 }

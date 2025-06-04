@@ -79,4 +79,13 @@ public class FileLoader : IFileLoader {
 
         return true;
     }
+
+    /// <inheritdoc/>
+    public Result<string> ReadFile(string path) {
+        if (!File.Exists(path)) {
+            return (null, $"No file found at path {path}");
+        }
+
+        return File.ReadAllText(path);
+    }
 }
