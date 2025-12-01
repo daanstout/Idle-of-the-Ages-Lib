@@ -25,7 +25,7 @@ public interface IFileLoader {
     /// <param name="identifier">The identifier for the file.</param>
     /// <param name="cacheFile">Whether to cache the file for faster lookup next time.</param>
     /// <returns>The contents of the requested file.</returns>
-    public Result<string> GetFileContents(string category, string identifier, bool cacheFile = true);
+    public Result<string> GetFileContents(string category, string identifier, bool cacheFile = false);
 
     /// <summary>
     /// Reads the contents of a file.

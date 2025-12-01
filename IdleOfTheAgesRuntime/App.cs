@@ -120,6 +120,7 @@ public class App {
         modObject.Mod.RegisterPublicServices(publicServiceLibrary);
         modObject.Mod.RegisterServices(modServiceLibrary);
         modObject.Init();
+        modObject.Mod.LoadData(modObject.ServiceLibrary);
         modObject.Mod.ModLoaded(modObject.ServiceLibrary);
     }
 

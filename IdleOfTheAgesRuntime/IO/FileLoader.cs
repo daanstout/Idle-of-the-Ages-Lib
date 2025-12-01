@@ -12,6 +12,7 @@ namespace IdleOfTheAgesRuntime.IO;
 /// <summary>
 /// Allows for registering and loading files.
 /// </summary>
+[Service<IFileLoader>]
 public class FileLoader : IFileLoader {
     private class FileCategoryData {
         public string Category { get; init; } = string.Empty;
@@ -24,7 +25,7 @@ public class FileLoader : IFileLoader {
     private readonly Dictionary<string, FileCategoryData> files = [];
 
     /// <inheritdoc/>
-    public Result<string> GetFileContents(string category, string identifier, bool cacheFile = true) {
+    public Result<string> GetFileContents(string category, string identifier, bool cacheFile = false) {
         if (!files.TryGetValue(category, out var data)) {
             return (null, $"The \"{category}\" category doesn't exist");
         }

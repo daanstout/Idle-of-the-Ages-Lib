@@ -41,4 +41,10 @@ public class Error {
     /// </summary>
     /// <param name="message">the string to cast.</param>
     public static implicit operator Error(string message) => new(message);
+
+    /// <summary>
+    /// Implicitly casts an <see cref="Error"/> to a <see cref="string"/>.
+    /// </summary>
+    /// <param name="error">The error to cast.</param>
+    public static implicit operator string(Error error) => error.Message;
 }

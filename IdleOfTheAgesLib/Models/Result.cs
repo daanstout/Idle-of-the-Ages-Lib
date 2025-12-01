@@ -240,7 +240,7 @@ public class Result<T> {
     /// Implicitly casts a <see cref="Tuple{T1, T2, T3}"/> of a <typeparamref name="T"/> value, a <see cref="string"/> value, and a <see cref="IEnumerable{T}"/> of type <see cref="Error"/> value to a <see cref="Result{T}"/> value.
     /// </summary>
     /// <param name="value">The tuple to cast.</param>
-    public static implicit operator Result<T>((T? Value, string Error, IEnumerable<Error> Errors) value) => new(value.Value, new List<Error>() { value.Error }.Append(value.Error));
+    public static implicit operator Result<T>((T? Value, string Error, IEnumerable<Error> Errors) value) => new(value.Value, new List<Error>(value.Errors).Append<Error>(value.Error));
 
     /// <summary>
     /// Implicitly casts a <see cref="Tuple{T1, T2, T3}"/> of a <typeparamref name="T"/> value, a <see cref="string"/> value, and an <see cref="Exception"/> object to a <see cref="Result{T}"/>.
