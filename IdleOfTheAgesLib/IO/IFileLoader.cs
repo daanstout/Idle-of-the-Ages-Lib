@@ -2,6 +2,8 @@
 // Copyright (c) DaanStout. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+
 namespace IdleOfTheAgesLib.IO;
 
 /// <summary>
@@ -33,4 +35,11 @@ public interface IFileLoader {
     /// <param name="path">The path the file is at.</param>
     /// <returns>The contents of the file.</returns>
     Result<string> ReadFile(string path);
+
+    /// <summary>
+    /// Gets the file identifiers for all files in the given category.
+    /// </summary>
+    /// <param name="category">The category to get the files for.</param>
+    /// <returns>All the file ids within that category.</returns>
+    IEnumerable<string> GetAllFilesInCategory(string category);
 }

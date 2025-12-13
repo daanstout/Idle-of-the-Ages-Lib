@@ -56,6 +56,17 @@ public class FileLoader : IFileLoader {
     }
 
     /// <inheritdoc/>
+    public IEnumerable<string> GetAllFilesInCategory(string category) {
+        if (!files.TryGetValue(category, out var data)) {
+            yield break;
+        }
+
+        foreach (var file in data.Files) {
+            yield return file.Key;
+        }
+    }
+
+    /// <inheritdoc/>
     public Result RegisterFile(string category, string identifier, string path, bool cacheFile = false) {
         if (!files.TryGetValue(category, out var data)) {
             data = new() {

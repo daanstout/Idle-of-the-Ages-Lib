@@ -218,6 +218,21 @@ public class Result<T> {
         return result.Value;
     }
 
+    /// <inheritdoc/>
+    public override string? ToString() {
+        if (this) {
+            return Value!.ToString();
+        }
+
+        StringBuilder stringBuilder = new();
+
+        foreach (var error in Errors) {
+            stringBuilder.AppendFormat("Error: {0}, Exception: {1}", error.Message, error.Exception);
+        }
+
+        return stringBuilder.ToString();
+    }
+
     /// <summary>
     /// Implicitly casts a <typeparamref name="T"/> value to a <see cref="Result{T}"/>.
     /// </summary>

@@ -14,6 +14,7 @@ namespace IdleOfTheAgesRuntime.UI.Services;
 /// <summary>
 /// Keeps track of all the templates that are available.
 /// </summary>
+[Service<ITemplateLibrary>]
 public class TemplateLibrary : ITemplateLibrary {
     private readonly IFileLoader fileLoader;
 

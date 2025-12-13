@@ -5,6 +5,7 @@
 using ExCSS;
 using IdleOfTheAgesLib;
 using IdleOfTheAgesLib.IO;
+using IdleOfTheAgesLib.Models;
 using IdleOfTheAgesLib.UI.Services;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace IdleOfTheAgesRuntime.UI.Services;
 /// <summary>
 /// Holds all loaded css rules.
 /// </summary>
+[Service<ICssLibrary>]
 public class CssLibrary : ICssLibrary {
     private class StyleData {
         public required string Selector { get; init; }
@@ -33,6 +35,35 @@ public class CssLibrary : ICssLibrary {
     public CssLibrary(IFileLoader fileLoader) {
         this.fileLoader = fileLoader;
         stylesheetParser = new StylesheetParser();
+    }
+
+    /// <inheritdoc/>
+    public Result LoadCSS() {
+        ResultBuilder resultBuilder = new();
+
+        foreach (var fileIdentifier in fileLoader.GetAllFilesInCategory(FileCategories.FILE_TYPE_CSS)) {
+            var file = fileLoader.GetFileContents(FileCategories.FILE_TYPE_CSS, fileIdentifier);
+
+            if (!file) {
+                resultBuilder.AddResult(file);
+                continue;
+            }
+
+            var stylesheet = stylesheetParser.Parse(file.Value);
+
+            foreach (var rule in stylesheet.StyleRules) {
+                if (!stylesheets.TryGetValue(rule.SelectorText, out var styleData)) {
+                    styleData = new StyleData {
+                        Selector = rule.SelectorText,
+                    };
+                    stylesheets[rule.SelectorText] = styleData;
+                }
+
+                styleData.Stylesheets.Add(rule.Style);
+            }
+        }
+
+        return resultBuilder.Build();
     }
 
     /// <inheritdoc/>

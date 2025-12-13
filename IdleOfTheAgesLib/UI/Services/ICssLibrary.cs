@@ -19,6 +19,15 @@ public interface ICssLibrary {
     IReadOnlyList<StyleDeclaration> GetStyleSheets(string selector);
 
     /// <summary>
+    /// Loads all CSS files registered to the application.
+    /// </summary>
+    /// <remarks>
+    /// Errors while loading specific files doesn't prevent the loading of other files.
+    /// </remarks>
+    /// <returns>Whether the style sheets were succesfully loaded.</returns>
+    Result LoadCSS();
+
+    /// <summary>
     /// Registers a CSS file to the library.
     /// </summary>
     /// <param name="path">The path to the CSS file.</param>

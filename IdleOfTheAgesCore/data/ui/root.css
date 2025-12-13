@@ -1,0 +1,23 @@
+#header #footer {
+    background-color: gray;
+    width: 100%;
+    min-height: 25px;
+    height: 5%;
+    max-height: 50px;
+}
+
+#viewport {
+    height: max-content;
+}
+
+#page_list {
+    background-color: lightgray;
+    width: 100px;
+    height: 100%;
+}
+
+#game_view {
+    background-color: lightgray;
+    width: max-content;
+    height: 100%;
+}
